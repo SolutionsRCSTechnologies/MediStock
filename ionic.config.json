@@ -1,0 +1,7 @@
+{
+  "name": "MediSales",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
