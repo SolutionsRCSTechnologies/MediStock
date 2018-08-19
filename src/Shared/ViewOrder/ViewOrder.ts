@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+  selector: 'vieworder',
+  templateUrl: 'ViewOrder.html'
 })
-export class Login {
- 
+export class ViewOrder {
+
   constructor(public navCtrl: NavController) {
 
   }
-  Login(){
-    //this.navCtrl.push();
-  }
+  
 }

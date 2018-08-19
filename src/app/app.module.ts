@@ -12,6 +12,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthModule } from '../Authentication/authentication.module';
+import { SharedModule } from '../Shared/sharedUtil.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AuthModule } from '../Authentication/authentication.module';
   imports: [
     BrowserModule,
     AuthModule,
+    SharedModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
