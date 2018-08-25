@@ -5,8 +5,8 @@ import { HttpFactory } from '../../Shared/service/httpservice/http';
 export class AuthService {
     constructor(private http: HttpFactory) {}
 
-    getAuth(authNo){
-        return this.http.get('getauthentication', {},authNo);
+    getAuth(){
+        return this.http.get('orders', {});
     }
     regAuth(formData) {
         return this.http.post('authentication', {});
