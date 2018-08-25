@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthModule } from '../Authentication/authentication.module';
 import { SharedModule } from '../Shared/sharedUtil.module';
+import { MedistockModule } from '../Medistock/medistock.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SharedModule } from '../Shared/sharedUtil.module';
     AuthModule,
     SharedModule,
     HttpModule,
+    MedistockModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

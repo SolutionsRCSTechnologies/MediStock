@@ -1,28 +1,30 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from '../Shared/sharedUtil.module';
-import { MedistockModule } from '../Medistock/medistock.module';
 import { IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Login } from './login/login';
-import { AuthService } from './login/auth.service';
+
+import { AboutPage } from './about/about';
+import { ContactPage } from './contact/contact';
+import { mediTabPage } from './medistock.tab/medistocktabcontainer';
 @NgModule({
-  declarations: [Login],
+  declarations: [mediTabPage,AboutPage,ContactPage],
   imports: [
     BrowserModule,
     SharedModule,
-    MedistockModule,
-    IonicModule.forRoot(Login)
+    IonicModule.forRoot(mediTabPage)
   ],
   //bootstrap: [IonicApp],
-  //entryComponents: [Login
-  //],
+  entryComponents: [mediTabPage,AboutPage,ContactPage
+  ],
   providers: [
     StatusBar,
     SplashScreen,
-    AuthService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
+  ],
+  exports: [
+    mediTabPage
   ]
 })
-export class AuthModule {}
+export class MedistockModule {}
