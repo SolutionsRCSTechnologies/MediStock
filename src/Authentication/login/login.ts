@@ -14,7 +14,7 @@ export class Login {
   }
   Login(){
     this.navCtrl.push(mediTabPage);
-    // this.subs.push(this.authservice.getAuth(15)
+    // this.subs.push(this.authservice.getAuth()
     //         .subscribe((res) => {
     //           console.dir(res);
     //         }, (err) => {

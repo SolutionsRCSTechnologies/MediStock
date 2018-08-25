@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class HttpFactory {
 
-    private baseUrl = 'https://randomuser.me/api/';
+    private baseUrl = 'http://localhost:3001/';
     private _headers: any;
  
     constructor(private http: Http) {

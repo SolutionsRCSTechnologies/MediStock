@@ -1,5 +1,6 @@
 export const APIEndpoints = {
     authentication: 'stockauthentication',
-    getauthentication: '?results'
+    getauthentication: '?results',
+    orders:'orders'
 };
 
