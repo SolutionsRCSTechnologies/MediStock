@@ -5,6 +5,7 @@ import { IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Login } from './login/login';
+import { AuthService } from './login/auth.service';
 @NgModule({
   declarations: [Login],
   imports: [
@@ -18,6 +19,7 @@ import { Login } from './login/login';
   providers: [
     StatusBar,
     SplashScreen,
+    AuthService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
