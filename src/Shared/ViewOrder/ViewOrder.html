@@ -1,10 +1,27 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Order</ion-title>
+    <ion-title>Order List</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  Grid
+  <ion-list class="ion-md-list" padding>
+    <ion-item class="item" *ngFor = "let ord of orderlst">
+      <ion-card (click)="DisplayOrder(ord.order_id)">
+        <p>Order:</p><h4>{{ord.order_id}}</h4>
+        <div>
+          <label>Submitted By:{{ord.salesman_name}}</label>
+          <label>Retailer:{{ord.retailer_name}}</label>
+        </div>
+        <div>
+          <label>Amount:{{ord.ordered_amt}}</label>
+          <label>Amount:{{ord.order_adv}}</label>
+        </div>
+        <div>
+          <p>Status: {{ord.order_status}}</p>
+        </div>
+      </ion-card>
+    </ion-item>
+  </ion-list>
 </ion-content>
  
