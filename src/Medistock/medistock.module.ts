@@ -8,15 +8,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AboutPage } from './about/about';
 import { ContactPage } from './contact/contact';
 import { mediTabPage } from './medistock.tab/medistocktabcontainer';
+import { HomePage } from './home/home'
 @NgModule({
-  declarations: [mediTabPage,AboutPage,ContactPage],
+  declarations: [mediTabPage,AboutPage,ContactPage,HomePage],
   imports: [
     BrowserModule,
     SharedModule,
     IonicModule.forRoot(mediTabPage)
   ],
   //bootstrap: [IonicApp],
-  entryComponents: [mediTabPage,AboutPage,ContactPage
+  entryComponents: [mediTabPage,AboutPage,ContactPage,HomePage
   ],
   providers: [
     StatusBar,
