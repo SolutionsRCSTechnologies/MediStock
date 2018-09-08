@@ -7,8 +7,12 @@ import { NavController } from 'ionic-angular';
 })
 export class ContactPage {
 
+  headernavObj : any = {
+    title: 'Contact page'
+  };
+  
   constructor(public navCtrl: NavController) {
 
   }
-
+  
 }
