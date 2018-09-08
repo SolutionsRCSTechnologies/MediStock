@@ -11,4 +11,8 @@ export class HomePage {
 
   }
 
+  headernavObj : any = {
+    title: 'page from menu 1'
+  };
+
 }
