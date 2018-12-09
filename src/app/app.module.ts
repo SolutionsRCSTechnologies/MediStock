@@ -14,7 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthModule } from '../Authentication/authentication.module';
 import { SharedModule } from '../Shared/sharedUtil.module';
 import { MedistockModule } from '../Medistock/medistock.module';
-
+import {AppState} from '../app/app.global';
 @NgModule({
   declarations: [
     MyApp
@@ -40,6 +40,7 @@ import { MedistockModule } from '../Medistock/medistock.module';
     // TabsPage
   ],
   providers: [
+    AppState,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
