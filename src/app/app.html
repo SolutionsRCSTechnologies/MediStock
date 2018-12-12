@@ -1,2 +1,11 @@
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" swipeBackEnabled="false"></ion-nav>
+<ion-nav class="{{currentTheme}}" [root]="rootPage" swipeBackEnabled="false"></ion-nav>
+
+<!-- <ion-item>
+    <ion-label>RED</ion-label>
+    <ion-radio  value="1" (ionSelect)="changeTheme('theme-red')"></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>BLACK</ion-label>
+    <ion-radio  value="2" (ionSelect)="changeTheme('theme-dark')"></ion-radio>
+  </ion-item> -->

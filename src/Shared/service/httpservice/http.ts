@@ -42,10 +42,10 @@ export class HttpFactory {
 
     }
 
-    post(endpointRef, postData) {
+    post(endpointRef, postData,header?) {
         let apiUrl: string = this.baseUrl.concat(this.getApiEndPointUrl(endpointRef));
         // Logger.log(JSON.stringify(postData));
-        return this.http.post(apiUrl, JSON.stringify(postData), { headers: this.getHeaders() })
+        return this.http.post(apiUrl, JSON.stringify(this.setRequest(postData,header)), { headers: this.getHeaders() })
             .map((res: Response) => {
                 return res.json();
             })
@@ -101,6 +101,13 @@ export class HttpFactory {
         }
         else {
             console.log(`No endpoint URL defined for ${endpointRef} in APIEndpoint.ts`, )
+        }
+    }
+
+    setRequest(body,header){
+        return {
+            header : header,
+            body:body
         }
     }
 
