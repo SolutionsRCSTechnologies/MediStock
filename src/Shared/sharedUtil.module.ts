@@ -8,20 +8,30 @@ import { Header } from './component/Header/Header';
 import { HeaderNav } from './component/HeaderNav/HeaderNav';
 import { Footer } from './component/Footer/Footer';
 import { HttpFactory } from './service/httpservice/http';
+import { AppStorage } from './service/StorageService/AppStorage';
+
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
-  declarations: [ViewOrder,Header,Footer,HeaderNav],
+  declarations: [ViewOrder, Header, Footer, HeaderNav],
   imports: [
     BrowserModule,
-    IonicModule
+    IonicModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
     SplashScreen,
     HttpFactory,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    AppStorage,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ],
   exports: [
-    ViewOrder,Header,HeaderNav,Footer
+    ViewOrder, Header, HeaderNav, Footer
+  ],
+  entryComponents: [
+    ViewOrder,
+    Header
   ]
 })
-export class SharedModule {}
+export class SharedModule { }

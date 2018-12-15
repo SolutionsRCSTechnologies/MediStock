@@ -11,10 +11,10 @@ import { HttpModule } from '@angular/http';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AuthModule } from '../Authentication/authentication.module';
+import { AuthModule } from '../AuthModule/Authentication.module';
 import { SharedModule } from '../Shared/sharedUtil.module';
 import { MedistockModule } from '../Medistock/medistock.module';
-import {AppState} from '../app/app.global';
+import { AppState } from '../app/app.global';
 @NgModule({
   declarations: [
     MyApp
@@ -43,7 +43,7 @@ import {AppState} from '../app/app.global';
     AppState,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -5,15 +5,17 @@ import { MedistockModule } from '../Medistock/medistock.module';
 import { IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Login } from './login/login';
-import { AuthService } from './login/auth.service';
+import { AuthComponent } from './Auth/Auth';
+import { AuthService } from './Auth.service';
+import { LogoutComponent } from './Logout/Logout';
+
 @NgModule({
-  declarations: [Login],
+  declarations: [AuthComponent, LogoutComponent],
   imports: [
     BrowserModule,
     SharedModule,
     MedistockModule,
-    IonicModule.forRoot(Login)
+    IonicModule.forRoot(AuthComponent)
   ],
   //bootstrap: [IonicApp],
   //entryComponents: [Login
@@ -22,7 +24,8 @@ import { AuthService } from './login/auth.service';
     StatusBar,
     SplashScreen,
     AuthService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
+  ],
+  entryComponents: [LogoutComponent]
 })
-export class AuthModule {}
+export class AuthModule { }
