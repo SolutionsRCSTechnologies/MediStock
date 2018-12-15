@@ -7,7 +7,7 @@
       <ion-col></ion-col>
     </ion-row>
 </ion-content> -->
-
+<ion-content>
     <div class="login-box" *ngIf="isLogin">
       <form (ngSubmit)="login()" #registerForm="ngForm">
         <ion-row>
@@ -169,3 +169,5 @@ Please enter valid mobile number
 {{user.invalid}}
 <button ion-button  [disabled]="user.invalid">SUBMIT</button>
 </form>
+
+</ion-content>
