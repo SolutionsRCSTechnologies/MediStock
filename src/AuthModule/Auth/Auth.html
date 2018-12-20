@@ -156,13 +156,18 @@
     </ion-item>
   </div>
   <div [class.hide]="state == 'INITIAL'">
-    <ion-item *ngIf="user.get('registrationtype').value != 'USER'">
+    <!-- <ion-item *ngIf="user.get('registrationtype').value != 'USER'">
       <ion-label>Owner Id</ion-label>
-      <ion-input type="text" value="" formControlName="ownerid"></ion-input>
-    </ion-item>
-    <ion-item *ngIf="user.get('registrationtype').value == 'USER'">
-      <ion-label>User Id</ion-label>
-      <ion-input type="text" value="" formControlName="userid"></ion-input>
+      <ion-input type="text" (keyPress)="CheckUserNames()" value="" formControlName="ownerid"></ion-input>
+      <ion-label *ngIf="IsAvailable">Available</ion-label>
+      <ion-label *ngIf="!IsAvailable">Not Available</ion-label>
+    </ion-item> -->
+    <ion-item>
+      <ion-label *ngIf="user.get('registrationtype').value != 'USER'">Owner Id</ion-label>
+      <ion-label *ngIf="user.get('registrationtype').value == 'USER'">User Id</ion-label>
+      <ion-input type="text" value="" (keyup)="userPhrase$.next($event.target.value)" formControlName="userid"></ion-input>
+      <ion-label *ngIf="IsAvailable">Available</ion-label>
+      <ion-label *ngIf="!IsAvailable">Not Available</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>Password</ion-label>

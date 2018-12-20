@@ -10,6 +10,8 @@ export class AppStorage {
     public static SessionId: string = 'SessionId';
     public static ElapsedTime: string = 'ElapsedTime';
 
+    public static AuthDetails: string = 'AuthDetails';
+
     //private localStore: Storage = null;
     constructor(private storage: Storage) {
         //  this.localStore = storage;
@@ -21,19 +23,15 @@ export class AppStorage {
 
     public Get(key: string) {
         try {
-            console.log(3);
             return this.storage.get(key);
         } catch (e) {
-            console.log(4);
         }
     }
 
     public Set(key: string, value: any) {
         try {
-            console.log(1);
             return this.storage.set(key, value);
         } catch (e) {
-            console.log(2);
         }
     }
 
