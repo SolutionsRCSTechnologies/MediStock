@@ -8,36 +8,44 @@
     </ion-row>
 </ion-content> -->
 
+<!-- <ion-content class="login-content" padding>
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+    <ion-col width-67>
+      <img src="../../assets/imgs/CDR.png"/>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+</ion-content> -->
+
 <div class="login-box" *ngIf="isLogin">
   <form (ngSubmit)="login()" #registerForm="ngForm">
     <ion-row>
       <ion-col>
-        <ion-item>
-          <ion-label *ngIf="loginErrorMessage && loginErrorMessage.length > 0">{{loginErrorMessage}}</ion-label>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
         <ion-list inset>
           <ion-item>
-            <ion-input type="text" placeholder="User Id" name="userid" [(ngModel)]="registerCredentials.userid"
+            <ion-label>User Id <span class="mandatorySign">*</span></ion-label>
+            <ion-input type="text"  name="userid" [(ngModel)]="registerCredentials.userid"
               required></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input type="password" placeholder="Password" [(ngModel)]="registerCredentials.password" name="password"
+            <ion-label>Password <span class="mandatorySign">*</span></ion-label>
+            <ion-input type="password" [(ngModel)]="registerCredentials.password" name="password"
               required></ion-input>
           </ion-item>
+          <ion-label class="error" *ngIf="loginErrorMessage != '' ">{{loginErrorMessage}}</ion-label>
 
         </ion-list>
       </ion-col>
     </ion-row>
+      
+    
 
     <ion-row>
       <ion-col class="signup-col">
         <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
-        <button ion-button class="register-btn" block clear (click)="isLogin = false">Create New Account</button>
+        <button ion-button class="register-btn" block clear (click)="CreateNewAccount()">Create New Account</button>
       </ion-col>
     </ion-row>
 
@@ -108,7 +116,7 @@
 
     <ion-item [class.hide]="regType == 'USER'" no-lines *ngIf="user.get('shopname').hasError('required') && user.get('shopname').touched">
       <div class="error" *ngIf="user.get('shopname').hasError('required') && user.get('shopname').touched">
-        Shope Name is required
+        Shope name is required
       </div>
     </ion-item>
 
@@ -175,10 +183,15 @@
       <ion-label [class.hide]="regType == 'USER'">Owner Id</ion-label>
       <ion-label [class.hide]="regType != 'USER'">User Id</ion-label>
       <span class="mandatorySign">*</span>
-      <ion-input type="text" value="" (keyup)="userPhrase$.next($event.target.value)" formControlName="userid"></ion-input>
-      <ion-label *ngIf="IsAvailable">Available</ion-label>
-      <ion-label *ngIf="!IsAvailable">Not Available</ion-label>
+      <ion-input type="text" #userId value="" (keyup)="userPhrase$.next($event.target.value)" formControlName="userid"></ion-input>
+      <ion-label>
+        <ion-icon *ngIf="IsAvailable && userId.value != '' " class="green" title="Id is available" name="checkmark-circle"></ion-icon>
+        <ion-icon *ngIf="!IsAvailable && userId.value != ''" class="red" title="Id is not available" name="remove-circle"></ion-icon>
+      </ion-label>
     </ion-item>
+<!--     
+    <ion-label class="red" *ngIf="!IsAvailable">Id is not available</ion-label> -->
+
     <ion-item [class.hide]="regType != 'USER'" no-lines *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">
         <div class="error" *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">
             User Id is required
