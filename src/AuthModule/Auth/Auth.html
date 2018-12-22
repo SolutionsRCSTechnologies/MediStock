@@ -47,39 +47,39 @@
 <form *ngIf="!isLogin" novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
   <div [class.hide]="state == 'NEXT'">
     <ion-item>
-      <ion-label>First Name</ion-label>
+      <ion-label>Name <span class="mandatorySign">*</span></ion-label>
       <ion-input type="text" value="" formControlName="firstname"></ion-input>
 
     </ion-item>
 
-    <ion-item no-lines *ngIf="( user.get('firstname').hasError('minlength') || user.get('firstname').hasError('required') ) && user.get('firstname').touched">
+    <ion-item no-lines *ngIf="( user.get('firstname').hasError('required') ) && user.get('firstname').touched">
 
       <div class="error" *ngIf="user.get('firstname').hasError('required') && user.get('firstname').touched">
         Name is required
       </div>
-      <div class="error" *ngIf="user.get('firstname').hasError('minlength') && user.get('firstname').touched">
+      <!-- <div class="error" *ngIf="user.get('firstname').hasError('minlength') && user.get('firstname').touched">
         Minimum of 4 characters
-      </div>
+      </div> -->
     </ion-item>
     <ion-item>
-      <ion-label>Email</ion-label>
-      <ion-input type="email" value="" formControlName="emailid"></ion-input>
+      <ion-label>Email <span class="mandatorySign">*</span></ion-label>
+      <ion-input type="text" value="" formControlName="emailid"></ion-input>
     </ion-item>
-    <ion-item no-lines *ngIf="( user.get('emailid').hasError('required') || user.get('emailid').hasError('emailid') ) && user.get('emailid').touched">
+    <ion-item no-lines *ngIf="!user.get('emailid').valid && user.get('emailid').touched">
       <div class="error" *ngIf="user.get('emailid').hasError('required') && user.get('emailid').touched">
-        email is required
+        Email id is required
       </div>
-      <div class="error" *ngIf="user.get('emailid').hasError('emailid') && user.get('emailid').touched">
-        Please enter valid email
+      <div class="error" *ngIf="!user.get('emailid').hasError('required') && !user.get('emailid').valid && user.get('emailid').touched">
+        Please enter valid email id
       </div>
     </ion-item>
     <ion-item>
-      <ion-label>Mob</ion-label>
-      <ion-input type="tel" value="" formControlName="mobileno"></ion-input>
+      <ion-label>Mob <span class="mandatorySign">*</span> (+91)</ion-label>
+      <ion-input type="number" maxlength="10" value="" formControlName="mobileno"></ion-input>
     </ion-item>
     <ion-item no-lines *ngIf="( user.get('mobileno').hasError('required') || user.get('mobileno').hasError('minlength') || user.get('mobileno').hasError('maxlength'))&& user.get('mobileno').touched">
       <div class="error" *ngIf="user.get('mobileno').hasError('required') && user.get('mobileno').touched">
-        mobile no is required
+        Mobile no is required
       </div>
       <div class="error" *ngIf="user.get('mobileno').hasError('minlength') && user.get('mobileno').touched">
         Please enter valid mobile number
@@ -90,56 +90,75 @@
       </div>
     </ion-item>
 
-    <ion-item *ngIf="user.get('registrationtype').value != 'USER'">
-      <ion-label>Drug License</ion-label>
+    <ion-item [class.hide]="regType == 'USER'">
+      <ion-label>Drug License <span class="mandatorySign">*</span></ion-label>
       <ion-input type="text" value="" formControlName="druglicense"></ion-input>
     </ion-item>
 
-    <ion-item no-lines *ngIf="( user.get('druglicense').hasError('required') || user.get('druglicense').hasError('emailid') ) && user.get('druglicense').touched">
+    <ion-item [class.hide]="regType == 'USER'" no-lines *ngIf="user.get('druglicense').hasError('required') && user.get('druglicense').touched">
       <div class="error" *ngIf="user.get('druglicense').hasError('required') && user.get('druglicense').touched">
-        License is required
+        Drug License is required
       </div>
     </ion-item>
 
-    <ion-item *ngIf="user.get('registrationtype').value != 'USER'">
-      <ion-label>Shope Name</ion-label>
+    <ion-item [class.hide]="regType == 'USER'">
+      <ion-label>Shope Name <span class="mandatorySign">*</span></ion-label>
       <ion-input type="text" value="" formControlName="shopname"></ion-input>
     </ion-item>
 
-    <ion-item no-lines *ngIf="( user.get('shopname').hasError('required') || user.get('shopname').hasError('shopname') ) && user.get('shopname').touched">
+    <ion-item [class.hide]="regType == 'USER'" no-lines *ngIf="user.get('shopname').hasError('required') && user.get('shopname').touched">
       <div class="error" *ngIf="user.get('shopname').hasError('required') && user.get('shopname').touched">
         Shope Name is required
       </div>
     </ion-item>
 
     <ion-item>
-      <ion-label>Address</ion-label>
-      <ion-textarea type="text" value="" formControlName="address"></ion-textarea>
+      <ion-label>Address <span class="mandatorySign">*</span></ion-label>
+      <ion-textarea style="resize: none;" type="text" value="" formControlName="address"></ion-textarea>
     </ion-item>
 
-    <ion-item no-lines *ngIf="( user.get('address').hasError('required') || user.get('address').hasError('address') ) && user.get('address').touched">
+    <ion-item no-lines *ngIf="user.get('address').hasError('required') && user.get('address').touched">
       <div class="error" *ngIf="user.get('address').hasError('required') && user.get('address').touched">
         Address is required
       </div>
     </ion-item>
 
-    <ion-item *ngIf="user.get('registrationtype').value != 'USER'">
+    <ion-item [class.hide]="regType != 'USER'">
+      <ion-label>Owner Info <span class="mandatorySign">*</span></ion-label>
+      <ion-input type="text" value="" formControlName="ownerinfo"></ion-input>
+    </ion-item>
+
+    <ion-item [class.hide]="regType != 'USER'" no-lines *ngIf="user.get('ownerinfo').hasError('required') && user.get('ownerinfo').touched">
+        <div class="error" *ngIf="user.get('ownerinfo').hasError('required') && user.get('ownerinfo').touched">
+            Owner Info is required
+        </div>
+    </ion-item>
+
+    <!-- <ion-item [class.hide]="regType == 'USER'">
       <ion-label>Country</ion-label>
 
       <ion-select formControlName="country">
         <ion-option value="f">India</ion-option>
         <ion-option value="m">Afrika</ion-option>
       </ion-select>
+    </ion-item> -->
+    <ion-item>
+        <ion-label>Registration Type</ion-label>
+        <ion-select interface="action-sheet" (ionChange)="Regtype(regType);" formControlName="registrationtype" [(ngModel)]="regType">
+          <ion-option value="OWNER">OWNER</ion-option>
+          <ion-option value="USER">USER</ion-option>
+        </ion-select>
     </ion-item>
 
-    <ion-item no-lines *ngIf="(user.get('country').hasError('required') || user.get('country').hasError('address') ) && user.get('country').touched">
-      <div class="error" *ngIf="user.get('country').hasError('required') && user.get('country').touched">
-        Address is required
-      </div>
+    <ion-item no-lines *ngIf="user.get('registrationtype').hasError('required') && user.get('registrationtype').touched">
+        <div class="error" *ngIf="user.get('registrationtype').hasError('required') && user.get('registrationtype').touched">
+            Registration Type is required
+        </div>
     </ion-item>
 
-    <ion-list radio-group formControlName="registrationtype">
-      <ion-label>Registration Type</ion-label>
+
+    <!-- <ion-list radio-group formControlName="registrationtype">
+      <ion-label>Registration Type <span class="mandatorySign">*</span></ion-label>
       <ion-item>
         <ion-label>OWNER</ion-label>
         <ion-radio value="OWNER" (ionSelect)="Regtype('OWNER')" [checked]=true></ion-radio>
@@ -148,33 +167,62 @@
         <ion-label>USER</ion-label>
         <ion-radio (ionSelect)="Regtype('USER')" value="USER"></ion-radio>
       </ion-item>
-    </ion-list>
-    <ion-item *ngIf="user.get('registrationtype').value == 'USER'">
-      <ion-label>Owner Info</ion-label>
-      <ion-input type="text" value="" formControlName="ownerinfo"></ion-input>
-
-    </ion-item>
+    </ion-list> -->
+    
   </div>
   <div [class.hide]="state == 'INITIAL'">
-    <ion-item *ngIf="user.get('registrationtype').value != 'USER'">
-      <ion-label>Owner Id</ion-label>
+    <ion-item [class.hide]="regType == 'USER'">
+      <ion-label>Owner Id <span class="mandatorySign">*</span></ion-label>
       <ion-input type="text" value="" formControlName="ownerid"></ion-input>
     </ion-item>
-    <ion-item *ngIf="user.get('registrationtype').value == 'USER'">
-      <ion-label>User Id</ion-label>
+    <ion-item  [class.hide]="regType == 'USER'" no-lines *ngIf="user.get('ownerid').hasError('required') && user.get('ownerid').touched">
+      <div class="error" *ngIf="user.get('ownerid').hasError('required') && user.get('ownerid').touched">
+          Owner Id is required
+      </div>
+    </ion-item>
+    <ion-item [class.hide]="regType != 'USER'">
+      <ion-label>User Id <span class="mandatorySign">*</span></ion-label>
       <ion-input type="text" value="" formControlName="userid"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label>Password</ion-label>
-      <ion-input type="password" value="" formControlName="password"></ion-input>
+    <ion-item [class.hide]="regType != 'USER'" no-lines *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">
+        <div class="error" *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">
+            User Id is required
+        </div>
     </ion-item>
+      <ion-item>
+        <ion-label>Password <span class="mandatorySign">*</span></ion-label>
+        <ion-input type="password" value="" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-item no-lines *ngIf="user.get('password').hasError('required') && user.get('password').touched">
+              <div class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">
+                  Password is required
+              </div>
+              <div class="error" *ngIf="user.get('password').valid && user.get('password').touched">
+                  Password is not valid
+              </div>
+          </ion-item>
+        <ion-label>confirm password <span class="mandatorySign">*</span></ion-label>
+        <ion-input type="password" value="" formControlName="confirm_password"></ion-input>
+      </ion-item>
+
+      <ion-item no-lines *ngIf="user.get('confirm_password').touched">
+        <div class="error" *ngIf="user.get('confirm_password').value != user.get('password').value">
+          Password and confirm password not matched
+        </div>
+        <!-- <div class="error" *ngIf="user.get('emailid').hasError('emailid') && user.get('emailid').touched">
+          Please enter valid email
+        </div> -->
+      </ion-item>
+    
     <!-- <ion-item>
         <ion-label >Confirm Password</ion-label>
         <ion-input type="password" value="" formControlName="conpassword"></ion-input>
       </ion-item> -->
   </div>
+  <button ion-button class="register-btn" block clear (click)="backtologin()">Back to Login</button>
   <a ion-link *ngIf="state == 'INITIAL'" (click)="Next()" color="primary">NEXT</a>
   <a ion-link *ngIf="state == 'NEXT'" (click)="Back()" color="primary">BACK</a>
-  {{user.invalid}}
-  <button ion-button [disabled]="user.invalid">SUBMIT</button>
+
+  <button ion-button [disabled]="user.invalid || customformvalidation">SUBMIT</button>
 </form>

@@ -29,30 +29,37 @@ export class AuthComponent implements OnInit {
   user: FormGroup;
   public state = "INITIAL";
   public loginErrorMessage: string = '';
-
+  //public userType = '';
+  public emailpattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  public passwordpattern = "^([a-zA-Z0-9@*#]{8,15})$";
+  public regType = 'OWNER';
   constructor(private navCtrl: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
 
   public createAccount() {
 
   }
   ngOnInit() {
+    this.regType = 'OWNER';
     this.user = new FormGroup({
       firstname: new FormControl('', [Validators.required]),
-      emailid: new FormControl('', [Validators.required, Validators.email]),
-      mobileno: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(14)]),
-      druglicense: new FormControl('', []),
-      shopname: new FormControl('', []),
+      emailid: new FormControl('', [Validators.required,Validators.pattern(this.emailpattern)]),
+      mobileno: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+      druglicense: new FormControl('', [Validators.required]),
+      shopname: new FormControl('',[Validators.required]),
       address: new FormControl('', [Validators.required]),
-      country: new FormControl('', []),
+      // country: new FormControl('', []),
       registrationtype: new FormControl('', [Validators.required]),
       ownerinfo: new FormControl('', []),
       userid: new FormControl('', []),
       ownerid: new FormControl('', []),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required,Validators.pattern(this.passwordpattern)]),
+      confirm_password: new FormControl('', [Validators.required,Validators.pattern(this.passwordpattern)])
       // conpassword: new FormControl('', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]]),
     });
   }
+  
 
+  //pattern= 
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
@@ -124,19 +131,51 @@ export class AuthComponent implements OnInit {
   }
 
   Regtype(val) {
+    let controls:any=['ownerid','ownerinfo','druglicense','shopname'];
+    let isvalidfield:boolean = false;
+    let isvalidownerinfo:boolean = false;
+    //this.userType = val;
     if (val == "USER") {
-      this.user.get('ownerinfo').setValidators([Validators.required]);
-      this.user.get('country').setValidators([Validators.nullValidator]);
-      this.user.get('druglicense').setValidators([Validators.nullValidator]);
-      this.user.get('shopname').setValidators([Validators.nullValidator]);
+      isvalidfield = false;
+      isvalidownerinfo = true;
     }
     else {
-      this.user.get('ownerinfo').setValidators([Validators.nullValidator]);
-      this.user.get('country').setValidators([Validators.required]);
-      this.user.get('druglicense').setValidators([Validators.required]);
-      this.user.get('shopname').setValidators([Validators.required]);
+      isvalidfield = true;
+      isvalidownerinfo = false;
     }
     this.user.updateValueAndValidity();
+
+    controls.forEach(element => {
+      if(element != 'ownerinfo' && element != 'ownerid') this.setresetcontrol(element,isvalidfield);
+      if(element == 'ownerinfo' || element == 'ownerid') this.setresetcontrol(element,isvalidownerinfo);
+    });
+
+  }
+
+  get customformvalidation(){
+    if(this.user.get('confirm_password').value == this.user.get('password').value){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  backtologin(){
+    this.isLogin = true
+    this.state = 'INITIAL';
+  }
+
+  setresetcontrol(controlname,valid){
+     this.user.removeControl(controlname);
+     let control:FormControl;
+     if(valid){
+        control = new FormControl([],[Validators.required]);
+     }
+     else{
+        control = new FormControl([],[Validators.nullValidator]);
+     }
+     this.user.setControl(controlname,control);
   }
 
   onSubmit(userdata) {
