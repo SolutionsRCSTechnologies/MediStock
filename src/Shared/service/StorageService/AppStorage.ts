@@ -52,4 +52,18 @@ export class AppStorage {
     public GetDriver() {
         return this.storage.driver;
     }
+
+    public RemoveAll() {
+        return this.storage.keys().then(res => {
+            //let hasKey: boolean = false;
+            if (res && res.length > 0) {
+                res.forEach(fn => {
+                    if (fn && fn.length > 0) {
+                        this.storage.remove(fn);
+                    }
+                });
+            }
+            //return hasKey;
+        });
+    }
 }

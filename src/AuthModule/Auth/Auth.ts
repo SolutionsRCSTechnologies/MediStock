@@ -47,10 +47,19 @@ export class AuthComponent implements OnInit {
     this.auth.GetAuthDetails().then(res => {
       let isValidAuth: boolean = false;
       if (res) {
+        console.log(111);
+        console.log(res);
+        // this.registerCredentials = {
+        //   userid: '',
+        //   password: '',
+        //   sessionid: ''
+        // };
         this.registerCredentials.userid = res.UserId;
         this.registerCredentials.sessionid = res.SessionId;
         let isTemp = this.registerCredentials.userid && this.registerCredentials.userid.length > 0 && this.registerCredentials.sessionid && this.registerCredentials.sessionid.length > 0;
-        isValidAuth = isTemp && (res.ElapsedTime > new Date());
+        //console.log(this.registerCredentials);
+        //isValidAuth = isTemp && (res.ElapsedTime > new Date());
+        isValidAuth = isTemp;
       }
       if (isValidAuth) {
         this.login();
@@ -116,7 +125,7 @@ export class AuthComponent implements OnInit {
     //debugger
     this.showLoading();
     //setTimeout
-    console.dir(this.registerCredentials);
+    console.log(this.registerCredentials);
     //this.navCtrl.push(mediTabPage);
     this.subs.push(this.auth.loginAuth(this.registerCredentials)
       .subscribe((res) => {
@@ -132,7 +141,13 @@ export class AuthComponent implements OnInit {
               } else {
                 this.loginErrorMessage = 'Login attempt is not successful.';
               }
-            })
+            }).catch(err => {
+              this.loading.dismiss();
+              this.loginErrorMessage = 'Error occurred during information retrieve in local device.';
+            });
+          }).catch(err => {
+            this.loading.dismiss();
+            this.loginErrorMessage = 'Error occurred during information save in local device.';
           });
         } else {
           this.loading.dismiss();
@@ -141,7 +156,7 @@ export class AuthComponent implements OnInit {
       }, (err) => {
         this.loading.dismiss();
         this.loginErrorMessage = 'Login failed.';
-      }))
+      }));
   }
 
   showError(text) {

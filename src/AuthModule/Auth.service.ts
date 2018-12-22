@@ -47,6 +47,7 @@ export class AuthService {
         let authDetails: AuthDetails = new AuthDetails();
         try {
             if (res) {
+                //await this.storage.RemoveAll().then(v => console.log('Remove all successful.')).catch(e => console.log(e));
                 if (res.sessionid) {
                     //await this.storage.Set(AppStorage.SessionId, res.sessionid);
                     authDetails.SessionId = res.sessionid;
@@ -71,8 +72,8 @@ export class AuthService {
                     //await this.storage.Set(AppStorage.ElapsedTime, res.elapsedtime);
                     authDetails.ElapsedTime = res.elapsedtime;
                 }
-
-                await this.storage.Set(AppStorage.AuthDetails, authDetails);
+                await this.storage.Remove(AppStorage.AuthDetails).then(v => { console.log(v) }).catch(e => { console.log(e); });
+                await this.storage.Set(AppStorage.AuthDetails, authDetails).then(v => { console.log(v) }).catch(e => { console.log(e); });
             }
         } catch (error) {
             throw error;
@@ -81,50 +82,11 @@ export class AuthService {
     }
 
     async GetAuthDetails() {
-        // let AuthDetials = {
-        //     UserId: '',
-        //     UserName: '',
-        //     UserRole: '',
-        //     UserType: '',
-        //     SessionId: ''
-        //     //ElapsedTime: parseDate(Date.now())
-        // };
         let authDetails: AuthDetails = new AuthDetails();
         try {
-            // await this.storage.Get(AppStorage.SessionId).then(val => {
-            //     if (val) {
-            //         AuthDetials.SessionId = String(val);
-            //     }
-            // });
-            // await this.storage.Get(AppStorage.UserId).then(val => {
-            //     if (val) {
-            //         AuthDetials.UserId = String(val);
-            //     }
-            // });
-            // await this.storage.Get(AppStorage.UserName).then(val => {
-            //     if (val) {
-            //         AuthDetials.UserName = String(val);
-            //     }
-            // });
-            // await this.storage.Get(AppStorage.UserRole).then(val => {
-            //     if (val) {
-            //         AuthDetials.UserRole = String(val);
-            //     }
-            // });
-            // await this.storage.Get(AppStorage.UserType).then(val => {
-            //     if (val) {
-            //         AuthDetials.UserType = String(val);
-            //     }
-            // });
-
-            // this.storage.Get(AppStorage.ElapsedTime).then(val => {
-            //   if (val) {
-            //     AuthDetials.ElapsedTime = parseDate(val);
-            //   }
-            // });
-
             await this.storage.Get(AppStorage.AuthDetails).then(res => {
                 if (res) {
+                    console.log(res);
                     authDetails.ElapsedTime = res.ElapsedTime;
                     authDetails.SessionId = res.SessionId;
                     authDetails.UserId = res.UserId;
@@ -132,6 +94,8 @@ export class AuthService {
                     authDetails.UserRole = res.UserRole;
                     authDetails.UserType = res.UserType;
                 }
+            }).catch(e => {
+                console.log(e);
             });
         } catch (error) {
             throw error;
@@ -142,6 +106,10 @@ export class AuthService {
     GetUserNames(data) {
         console.log(data);
         return this.http.post('getUserIds', data, {});
+    }
+
+    RemoveAuthDetails() {
+        return this.storage.Remove(AppStorage.AuthDetails).then(v => { console.log(v) }).catch(e => { console.log(e); });
     }
 
 }
