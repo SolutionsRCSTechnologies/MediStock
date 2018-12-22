@@ -57,8 +57,8 @@ export class AuthComponent implements OnInit {
       // country: new FormControl('', []),
       registrationtype: new FormControl('', [Validators.required]),
       ownerinfo: new FormControl('', []),
-      userid: new FormControl('', []),
-      ownerid: new FormControl('', []),
+      userid: new FormControl('', [Validators.required,Validators.minLength(3)]),
+     // ownerid: new FormControl('', []),
       password: new FormControl('', [Validators.required,Validators.pattern(this.passwordpattern)]),
       confirm_password: new FormControl('', [Validators.required,Validators.pattern(this.passwordpattern)])
     });
@@ -101,10 +101,10 @@ export class AuthComponent implements OnInit {
             }
           });
         }
-        if (term && term.length > 0) {
-          let reg: RegExp = new RegExp('^' + term.trim());
-          console.log(this.nameList.findIndex(val => val.search(reg) != -1));
-          this.IsAvailable = !(this.nameList.findIndex(val => val.search(reg) != -1) != -1);
+        if (term && term.length > 2) {
+          //let reg: RegExp = new RegExp('^' + term.trim());
+          console.log(this.nameList.findIndex(val => val === term) != -1);
+          this.IsAvailable = !(this.nameList.findIndex(val => val === term) != -1);
         } else {
           this.IsAvailable = false;
         }
@@ -164,17 +164,18 @@ export class AuthComponent implements OnInit {
   }
 
   showError(text) {
-    this.loading.dismiss();
+    //this.loading.dismiss();
 
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
       buttons: ['OK']
     });
+    alert.present();
   }
 
   showAlert(text, titleName?) {
-    this.loading.dismiss();
+    //this.loading.dismiss();
 
     let alert = this.alertCtrl.create({
       title: titleName && titleName.length > 0 ? titleName : 'Alert',
@@ -194,8 +195,8 @@ export class AuthComponent implements OnInit {
     //   this.user.get('userid').setValidators([Validators.nullValidator]);
     //   this.user.get('ownerid').setValidators([Validators.required, Validators.minLength(6)]);
     // }
-    this.user.get('userid').setValidators([Validators.required, Validators.minLength(6)]);
-    this.user.updateValueAndValidity();
+    // this.user.get('userid').setValidators([Validators.required, Validators.minLength(6)]);
+    // this.user.updateValueAndValidity();
     this.state = 'NEXT';
   }
 
@@ -204,7 +205,7 @@ export class AuthComponent implements OnInit {
   }
 
   Regtype(val) {
-    let controls:any=['ownerid','ownerinfo','druglicense','shopname'];
+    let controls:any=['ownerinfo','druglicense','shopname'];
     let isvalidfield:boolean = false;
     let isvalidownerinfo:boolean = false;
     //this.userType = val;
@@ -216,11 +217,10 @@ export class AuthComponent implements OnInit {
       isvalidfield = true;
       isvalidownerinfo = false;
     }
-    this.user.updateValueAndValidity();
 
     controls.forEach(element => {
-      if(element != 'ownerinfo' && element != 'ownerid') this.setresetcontrol(element,isvalidfield);
-      if(element == 'ownerinfo' || element == 'ownerid') this.setresetcontrol(element,isvalidownerinfo);
+      if(element != 'ownerinfo') this.setresetcontrol(element,isvalidfield);
+      if(element == 'ownerinfo') this.setresetcontrol(element,isvalidownerinfo);
     });
 
   }
@@ -234,9 +234,22 @@ export class AuthComponent implements OnInit {
     }
   }
 
+  CreateNewAccount(){
+    this.isLogin = false;
+    this.user.reset();
+  }
+
   backtologin(){
     this.isLogin = true
     this.state = 'INITIAL';
+
+    // Clear Login Info
+    this.registerCredentials = {
+      userid: '',
+      password: '',
+      sessionid: ''
+    };
+    this.loginErrorMessage = '';
   }
 
   setresetcontrol(controlname,valid){
@@ -302,7 +315,7 @@ export class AuthComponent implements OnInit {
         console.log(1);
         let obj: any = {
           header: {
-            errocode: 0,
+            errorcode: 0,
             message: term
           },
           body: []

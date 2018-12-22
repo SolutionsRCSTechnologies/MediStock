@@ -23,14 +23,14 @@ export class AuthService {
             reqData = {
                 registrationtype: "USER",
                 ownerid: formData.ownerinfo,
-                users: {
+                users:[{
                     userid: formData.userid,
                     password: formData.password,
                     firstname: formData.firstname,
                     emailid: formData.emailid,
                     mobileno: formData.mobileno,
                     address: formData.address
-                }
+                }]
             }
         }
         else {
