@@ -28,36 +28,20 @@ export class ViewOrder implements OnInit {
 
   GetAuthDetails() {
     try {
-      this.storage.Get(AppStorage.SessionId).then(val => {
+      console.log(4);
+      this.storage.Get(AppStorage.AuthDetails).then(val => {
         if (val) {
-          this.AuthDetials.SessionId = String(val);
+          console.log(val);
+          this.AuthDetials.SessionId = val.SessionId ? String(val.SessionId) : '';
+          this.AuthDetials.UserId = val.UserId ? String(val.UserId) : '';
+          this.AuthDetials.UserName = val.UserName ? String(val.UserName) : '';
+          this.AuthDetials.UserRole = val.UserRole ? String(val.UserRole) : '';
+          this.AuthDetials.UserType = val.UserType ? String(val.UserType) : '';
+          console.log(5);
         }
+      }).catch(e => {
+        console.log(e);
       });
-      this.storage.Get(AppStorage.UserId).then(val => {
-        if (val) {
-          this.AuthDetials.UserId = String(val);
-        }
-      });
-      this.storage.Get(AppStorage.UserName).then(val => {
-        if (val) {
-          this.AuthDetials.UserName = String(val);
-        }
-      });
-      this.storage.Get(AppStorage.UserRole).then(val => {
-        if (val) {
-          this.AuthDetials.UserRole = String(val);
-        }
-      });
-      this.storage.Get(AppStorage.UserType).then(val => {
-        if (val) {
-          this.AuthDetials.UserType = String(val);
-        }
-      });
-      // this.storage.Get(AppStorage.ElapsedTime).then(val => {
-      //   if (val) {
-      //     this.AuthDetials.ElapsedTime = parseDate(val);
-      //   }
-      // });
     } catch (error) {
       throw error;
     }

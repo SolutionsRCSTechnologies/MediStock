@@ -4,6 +4,7 @@ export const APIEndpoints = {
     orders: 'orders',
     loginAuth: 'auth/login',
     regAuth: 'auth/register',
-    logout: 'auth/logout'
+    logoutAuth: 'auth/logout',
+    getUserIds: 'auth/register/ids'
 };
 
