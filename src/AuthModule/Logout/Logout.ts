@@ -25,13 +25,18 @@ export class LogoutComponent implements OnInit {
                 header.sessionid = res.SessionId;
             }
             this.auth.logoutAuth(header).subscribe(obs => {
-                if (obs && obs.errorcode == 0) {
-                    this.message = 'Successfull';
-                    this.navCtrl.push(AuthComponent);
+                if (obs && obs.header && obs.header.errorcode === 0) {
+                    this.auth.RemoveAuthDetails().then(res => {
+                        this.message = 'Successful';
+                        this.navCtrl.push(AuthComponent);
+                    }, (err) => {
+                        this.message = 'Partialy Successful';
+                        this.navCtrl.push(AuthComponent);
+                    });
                 } else {
-                    this.message = 'Unsuccessfull';
+                    this.message = 'Unsuccessful';
                 }
-            }).unsubscribe();
+            });
         });
     }
 
