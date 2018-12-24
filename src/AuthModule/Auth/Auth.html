@@ -199,33 +199,33 @@
     <ion-item>
       <ion-label>Password <span class="mandatorySign">*</span></ion-label>
       <ion-input type="password" value="" formControlName="password"></ion-input>
-      <ion-label class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">Password
+      <!-- <ion-label class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">Password
         is required</ion-label>
-      <ion-label class="error" *ngIf="user.get('password').valid && user.get('password').touched">Password is not valid</ion-label>
+      <ion-label class="error" *ngIf="user.get('password').valid && user.get('password').touched">Password is not valid</ion-label> -->
     </ion-item>
     <ion-item>
-      <!-- <ion-item no-lines *ngIf="user.get('password').hasError('required') && user.get('password').touched">
-              <div class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">
-                  Password is required
-              </div>
-              <div class="error" *ngIf="user.get('password').valid && user.get('password').touched">
-                  Password is not valid
-              </div>
-          </ion-item> -->
+      <ion-item no-lines *ngIf="user.get('password').hasError('required') && user.get('password').touched">
+        <div class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">
+          Password is required
+        </div>
+        <div class="error" *ngIf="user.get('password').valid && user.get('password').touched">
+          Password is not valid
+        </div>
+      </ion-item>
       <ion-label>confirm password <span class="mandatorySign">*</span></ion-label>
       <ion-input type="password" value="" formControlName="confirm_password"></ion-input>
-      <ion-label class="error" *ngIf="user.get('confirm_password').touched && user.get('confirm_password').value != user.get('password').value">Password
-        and confirm password not matched</ion-label>
+      <!-- <ion-label class="error" *ngIf="user.get('confirm_password').touched && user.get('confirm_password').value != user.get('password').value">Password
+        and confirm password not matched</ion-label> -->
     </ion-item>
 
-    <!-- <ion-item no-lines *ngIf="user.get('confirm_password').touched">
+    <ion-item no-lines *ngIf="user.get('confirm_password').touched">
       <div class="error" *ngIf="user.get('confirm_password').value != user.get('password').value">
         Password and confirm password not matched
       </div>
-      <div class="error" *ngIf="user.get('emailid').hasError('emailid') && user.get('emailid').touched">
+      <!-- <div class="error" *ngIf="user.get('emailid').hasError('emailid') && user.get('emailid').touched">
           Please enter valid email
-        </div>
-    </ion-item> -->
+        </div> -->
+    </ion-item>
 
     <!-- <ion-item>
         <ion-label >Confirm Password</ion-label>
