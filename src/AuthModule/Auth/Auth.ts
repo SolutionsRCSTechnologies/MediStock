@@ -11,6 +11,7 @@ import { parseDate } from 'ionic-angular/umd/util/datetime-util';
 import { ViewOrder } from '../../Shared/component/ViewOrder/ViewOrder';
 import { Header } from '../../Shared/component/Header/Header';
 import { Observable, Subject } from 'rxjs';
+import { ToastController } from 'ionic-angular';
 //import { Observable } from 'rxjs/Observable';
 // https://devdactic.com/login-ionic-2/
 @Component({
@@ -19,6 +20,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class AuthComponent implements OnInit {
   loading: Loading;
+
   registerCredentials = {
     userid: '',
     password: '',
@@ -41,28 +43,28 @@ export class AuthComponent implements OnInit {
   public emailpattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   public passwordpattern = "^([a-zA-Z0-9@*#]{8,15})$";
   public regType = 'OWNER';
-  constructor(private navCtrl: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
+  constructor(private navCtrl: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private toastCtrl: ToastController) { }
 
   public createAccount() {
 
   }
-  RegistrationForm(){
+  RegistrationForm() {
     this.user = new FormGroup({
       firstname: new FormControl('', [Validators.required]),
-      emailid: new FormControl('', [Validators.required,Validators.pattern(this.emailpattern)]),
+      emailid: new FormControl('', [Validators.required, Validators.pattern(this.emailpattern)]),
       mobileno: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
       druglicense: new FormControl('', [Validators.required]),
-      shopname: new FormControl('',[Validators.required]),
+      shopname: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
       // country: new FormControl('', []),
       registrationtype: new FormControl('', [Validators.required]),
       ownerinfo: new FormControl('', []),
-      userid: new FormControl('', [Validators.required,Validators.minLength(3)]),
-     // ownerid: new FormControl('', []),
-      password: new FormControl('', [Validators.required,Validators.pattern(this.passwordpattern)]),
-      confirm_password: new FormControl('', [Validators.required,Validators.pattern(this.passwordpattern)])
+      userid: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      // ownerid: new FormControl('', []),
+      password: new FormControl('', [Validators.required, Validators.pattern(this.passwordpattern)]),
+      confirm_password: new FormControl('', [Validators.required, Validators.pattern(this.passwordpattern)])
     });
-    }
+  }
 
   ngOnInit() {
     this.auth.GetAuthDetails().then(res => {
@@ -113,7 +115,7 @@ export class AuthComponent implements OnInit {
       }
     }));
   }
-  
+
 
   //pattern= 
 
@@ -166,23 +168,48 @@ export class AuthComponent implements OnInit {
   showError(text) {
     //this.loading.dismiss();
 
-    let alert = this.alertCtrl.create({
-      title: 'Fail',
-      subTitle: text,
-      buttons: ['OK']
+    // let alert = this.alertCtrl.create({
+    //   title: 'Fail',
+    //   subTitle: text,
+    //   buttons: ['OK']
+    // });
+    // alert.present();
+
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'top'
     });
-    alert.present();
+
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
   showAlert(text, titleName?) {
     //this.loading.dismiss();
 
-    let alert = this.alertCtrl.create({
-      title: titleName && titleName.length > 0 ? titleName : 'Alert',
-      subTitle: text,
-      buttons: ['OK']
+    // let alert = this.alertCtrl.create({
+    //   title: titleName && titleName.length > 0 ? titleName : 'Alert',
+    //   subTitle: text,
+    //   buttons: ['OK']
+    // });
+    // alert.present();
+
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'middle'
     });
-    alert.present();
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
   Next() {
@@ -205,9 +232,9 @@ export class AuthComponent implements OnInit {
   }
 
   Regtype(val) {
-    let controls:any=['ownerinfo','druglicense','shopname'];
-    let isvalidfield:boolean = false;
-    let isvalidownerinfo:boolean = false;
+    let controls: any = ['ownerinfo', 'druglicense', 'shopname'];
+    let isvalidfield: boolean = false;
+    let isvalidownerinfo: boolean = false;
     //this.userType = val;
     if (val == "USER") {
       isvalidfield = false;
@@ -219,27 +246,27 @@ export class AuthComponent implements OnInit {
     }
 
     controls.forEach(element => {
-      if(element != 'ownerinfo') this.setresetcontrol(element,isvalidfield);
-      if(element == 'ownerinfo') this.setresetcontrol(element,isvalidownerinfo);
+      if (element != 'ownerinfo') this.setresetcontrol(element, isvalidfield);
+      if (element == 'ownerinfo') this.setresetcontrol(element, isvalidownerinfo);
     });
 
   }
 
-  get customformvalidation(){
-    if(this.user.get('confirm_password').value == this.user.get('password').value){
+  get customformvalidation() {
+    if (this.user.get('confirm_password').value == this.user.get('password').value) {
       return false;
     }
-    else{
+    else {
       return true;
     }
   }
 
-  CreateNewAccount(){
+  CreateNewAccount() {
     this.isLogin = false;
     this.user.reset();
   }
 
-  backtologin(){
+  backtologin() {
     this.isLogin = true
     this.state = 'INITIAL';
 
@@ -252,16 +279,16 @@ export class AuthComponent implements OnInit {
     this.loginErrorMessage = '';
   }
 
-  setresetcontrol(controlname,valid){
-     this.user.removeControl(controlname);
-     let control:FormControl;
-     if(valid){
-        control = new FormControl([],[Validators.required]);
-     }
-     else{
-        control = new FormControl([],[Validators.nullValidator]);
-     }
-     this.user.setControl(controlname,control);
+  setresetcontrol(controlname, valid) {
+    this.user.removeControl(controlname);
+    let control: FormControl;
+    if (valid) {
+      control = new FormControl([], [Validators.required]);
+    }
+    else {
+      control = new FormControl([], [Validators.nullValidator]);
+    }
+    this.user.setControl(controlname, control);
   }
 
   onSubmit(userdata) {

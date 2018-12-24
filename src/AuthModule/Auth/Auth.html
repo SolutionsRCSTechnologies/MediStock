@@ -25,22 +25,20 @@
         <ion-list inset>
           <ion-item>
             <ion-label>User Id <span class="mandatorySign">*</span></ion-label>
-            <ion-input type="text"  name="userid" [(ngModel)]="registerCredentials.userid"
-              required></ion-input>
+            <ion-input type="text" name="userid" [(ngModel)]="registerCredentials.userid" required></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label>Password <span class="mandatorySign">*</span></ion-label>
-            <ion-input type="password" [(ngModel)]="registerCredentials.password" name="password"
-              required></ion-input>
+            <ion-input type="password" [(ngModel)]="registerCredentials.password" name="password" required></ion-input>
           </ion-item>
           <ion-label class="error" *ngIf="loginErrorMessage != '' ">{{loginErrorMessage}}</ion-label>
 
         </ion-list>
       </ion-col>
     </ion-row>
-      
-    
+
+
 
     <ion-row>
       <ion-col class="signup-col">
@@ -137,9 +135,9 @@
     </ion-item>
 
     <ion-item [class.hide]="regType != 'USER'" no-lines *ngIf="user.get('ownerinfo').hasError('required') && user.get('ownerinfo').touched">
-        <div class="error" *ngIf="user.get('ownerinfo').hasError('required') && user.get('ownerinfo').touched">
-            Owner Info is required
-        </div>
+      <div class="error" *ngIf="user.get('ownerinfo').hasError('required') && user.get('ownerinfo').touched">
+        Owner Info is required
+      </div>
     </ion-item>
 
     <!-- <ion-item [class.hide]="regType == 'USER'">
@@ -151,17 +149,18 @@
       </ion-select>
     </ion-item> -->
     <ion-item>
-        <ion-label>Registration Type</ion-label>
-        <ion-select interface="action-sheet" (ionChange)="Regtype(regType);" formControlName="registrationtype" [(ngModel)]="regType">
-          <ion-option value="OWNER">OWNER</ion-option>
-          <ion-option value="USER">USER</ion-option>
-        </ion-select>
+      <ion-label>Registration Type</ion-label>
+      <ion-select interface="action-sheet" (ionChange)="Regtype(regType);" formControlName="registrationtype"
+        [(ngModel)]="regType">
+        <ion-option value="OWNER">OWNER</ion-option>
+        <ion-option value="USER">USER</ion-option>
+      </ion-select>
     </ion-item>
 
     <ion-item no-lines *ngIf="user.get('registrationtype').hasError('required') && user.get('registrationtype').touched">
-        <div class="error" *ngIf="user.get('registrationtype').hasError('required') && user.get('registrationtype').touched">
-            Registration Type is required
-        </div>
+      <div class="error" *ngIf="user.get('registrationtype').hasError('required') && user.get('registrationtype').touched">
+        Registration Type is required
+      </div>
     </ion-item>
 
 
@@ -176,7 +175,7 @@
         <ion-radio (ionSelect)="Regtype('USER')" value="USER"></ion-radio>
       </ion-item>
     </ion-list> -->
-    
+
   </div>
   <div [class.hide]="state == 'INITIAL'">
     <ion-item>
@@ -189,40 +188,45 @@
         <ion-icon *ngIf="!IsAvailable && userId.value != ''" class="red" title="Id is not available" name="remove-circle"></ion-icon>
       </ion-label>
     </ion-item>
-<!--     
+    <!--     
     <ion-label class="red" *ngIf="!IsAvailable">Id is not available</ion-label> -->
 
     <ion-item [class.hide]="regType != 'USER'" no-lines *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">
-        <div class="error" *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">
-            User Id is required
-        </div>
+      <div class="error" *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">
+        User Id is required
+      </div>
     </ion-item>
-      <ion-item>
-        <ion-label>Password <span class="mandatorySign">*</span></ion-label>
-        <ion-input type="password" value="" formControlName="password"></ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-item no-lines *ngIf="user.get('password').hasError('required') && user.get('password').touched">
+    <ion-item>
+      <ion-label>Password <span class="mandatorySign">*</span></ion-label>
+      <ion-input type="password" value="" formControlName="password"></ion-input>
+      <ion-label class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">Password
+        is required</ion-label>
+      <ion-label class="error" *ngIf="user.get('password').valid && user.get('password').touched">Password is not valid</ion-label>
+    </ion-item>
+    <ion-item>
+      <!-- <ion-item no-lines *ngIf="user.get('password').hasError('required') && user.get('password').touched">
               <div class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">
                   Password is required
               </div>
               <div class="error" *ngIf="user.get('password').valid && user.get('password').touched">
                   Password is not valid
               </div>
-          </ion-item>
-        <ion-label>confirm password <span class="mandatorySign">*</span></ion-label>
-        <ion-input type="password" value="" formControlName="confirm_password"></ion-input>
-      </ion-item>
+          </ion-item> -->
+      <ion-label>confirm password <span class="mandatorySign">*</span></ion-label>
+      <ion-input type="password" value="" formControlName="confirm_password"></ion-input>
+      <ion-label class="error" *ngIf="user.get('confirm_password').touched && user.get('confirm_password').value != user.get('password').value">Password
+        and confirm password not matched</ion-label>
+    </ion-item>
 
-      <ion-item no-lines *ngIf="user.get('confirm_password').touched">
-        <div class="error" *ngIf="user.get('confirm_password').value != user.get('password').value">
-          Password and confirm password not matched
-        </div>
-        <!-- <div class="error" *ngIf="user.get('emailid').hasError('emailid') && user.get('emailid').touched">
+    <!-- <ion-item no-lines *ngIf="user.get('confirm_password').touched">
+      <div class="error" *ngIf="user.get('confirm_password').value != user.get('password').value">
+        Password and confirm password not matched
+      </div>
+      <div class="error" *ngIf="user.get('emailid').hasError('emailid') && user.get('emailid').touched">
           Please enter valid email
-        </div> -->
-      </ion-item>
-    
+        </div>
+    </ion-item> -->
+
     <!-- <ion-item>
         <ion-label >Confirm Password</ion-label>
         <ion-input type="password" value="" formControlName="conpassword"></ion-input>
