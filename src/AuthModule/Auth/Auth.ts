@@ -25,6 +25,8 @@ export class AuthComponent implements OnInit {
     sessionid: ''
   };
 
+  pepperoni:any = 'user';
+
   nameList: string[] = [];
   IsAvailable: boolean = false;
 
@@ -36,11 +38,12 @@ export class AuthComponent implements OnInit {
 
   user: FormGroup;
   public state = "INITIAL";
-  public loginErrorMessage: string = '';
+  public loginErrorMessage: string = 'gggggggggg';
   //public userType = '';
   public emailpattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   public passwordpattern = "^([a-zA-Z0-9@*#]{8,15})$";
   public regType = 'OWNER';
+  public hide:boolean = true;
   constructor(private navCtrl: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
 
   public createAccount() {
@@ -57,7 +60,9 @@ export class AuthComponent implements OnInit {
       // country: new FormControl('', []),
       registrationtype: new FormControl('', [Validators.required]),
       ownerinfo: new FormControl('', []),
+      isToggled: new FormControl(false, [Validators.required]),
       userid: new FormControl('', [Validators.required,Validators.minLength(3)]),
+      
      // ownerid: new FormControl('', []),
       password: new FormControl('', [Validators.required,Validators.pattern(this.passwordpattern)]),
       confirm_password: new FormControl('', [Validators.required,Validators.pattern(this.passwordpattern)])
@@ -202,6 +207,10 @@ export class AuthComponent implements OnInit {
 
   Back() {
     this.state = "INITIAL";
+  }
+
+  notify(){
+    
   }
 
   Regtype(val) {

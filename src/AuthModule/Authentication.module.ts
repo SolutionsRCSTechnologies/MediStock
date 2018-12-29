@@ -8,6 +8,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthComponent } from './Auth/Auth';
 import { AuthService } from './Auth.service';
 import { LogoutComponent } from './Logout/Logout';
+/* Material component */
+import {MatButtonModule, MatCheckboxModule,MatInputModule} from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [AuthComponent, LogoutComponent],
@@ -15,6 +21,7 @@ import { LogoutComponent } from './Logout/Logout';
     BrowserModule,
     SharedModule,
     MedistockModule,
+    MatButtonModule, MatCheckboxModule,MatInputModule,MatFormFieldModule,MatCardModule,MatProgressSpinnerModule,MatIconModule,
     IonicModule.forRoot(AuthComponent)
   ],
   //bootstrap: [IonicApp],

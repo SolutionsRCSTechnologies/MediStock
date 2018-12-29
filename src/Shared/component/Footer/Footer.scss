@@ -1,1 +1,19 @@
 
+.footerBg{
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 10;
+    display: block;
+    width: 100%;
+    padding: 3%;
+    color: #b5d4ea;
+    // #b5d4ea
+    // #cce3f3
+
+    //dark 061c3f
+    font-weight: bold;
+    // border-top-left-radius: 25px;
+    // border-top-right-radius: 25px;
+    background-image: linear-gradient(#79d7ed,#145d8f) !important;
+}

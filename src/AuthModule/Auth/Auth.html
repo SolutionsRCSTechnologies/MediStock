@@ -17,13 +17,37 @@
     <ion-col></ion-col>
   </ion-row>
 </ion-content> -->
+<ion-content class="mainColorbg">
+    <!-- <ion-row class="logo-row">
+        <ion-col></ion-col>
+        <ion-col width-67>
+          <img src="../../assets/imgs/CDR.png"/>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row> -->
 
-<div class="login-box" *ngIf="isLogin">
+
+
+
+<div class="login-box parent" *ngIf="isLogin">
+  <div class="form_login">
+  <div class="logoWrapper">
+      <img src="../../assets/imgs/CDR.png" class="rounded"/>
+  </div> 
   <form (ngSubmit)="login()" #registerForm="ngForm">
-    <ion-row>
+      <!-- <mat-form-field>
+          INPUTX <input matInput placeholder="Input">
+      </mat-form-field> -->
+    <!-- <ion-row>
       <ion-col>
         <ion-list inset>
-          <ion-item>
+            <div class="example-container">
+            <mat-form-field>
+                 <input matInput placeholder="Input">
+            </mat-form-field>
+            </div> -->
+            
+          <!-- <ion-item>
             <ion-label>User Id <span class="mandatorySign">*</span></ion-label>
             <ion-input type="text"  name="userid" [(ngModel)]="registerCredentials.userid"
               required></ion-input>
@@ -34,26 +58,65 @@
             <ion-input type="password" [(ngModel)]="registerCredentials.password" name="password"
               required></ion-input>
           </ion-item>
-          <ion-label class="error" *ngIf="loginErrorMessage != '' ">{{loginErrorMessage}}</ion-label>
+          <ion-label class="error" *ngIf="loginErrorMessage != '' ">{{loginErrorMessage}}</ion-label> -->
 
-        </ion-list>
+        <!-- </ion-list>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
       
     
-
+<!-- 
     <ion-row>
       <ion-col class="signup-col">
         <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
         <button ion-button class="register-btn" block clear (click)="CreateNewAccount()">Create New Account</button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
+    
+    <mat-card class="example-card">
+        <!-- <mat-card-header class="mat-login-header">
+          <mat-card-title class="f30">Login</mat-card-title>
+        </mat-card-header> -->
+        <mat-card-content>
+        <div class="example-container">
+          <div>
+              <ion-icon name="person"></ion-icon>
+            <mat-form-field  class="w25p f16">
+              <input matInput placeholder="Enter your username" [(ngModel)]="registerCredentials.userid" [ngModelOptions]="{standalone:true}" name="username" required>
+            </mat-form-field>
+          </div>    
+
+          <div>
+            <ion-icon name="key"></ion-icon>
+            <mat-form-field class="w25p f16">
+              <!-- <input matInput placeholder="Password" type="password" name="password" required> -->
+              <input matInput placeholder="Enter your password" [(ngModel)]="registerCredentials.password" [ngModelOptions]="{standalone:true}" [type]="hide ? 'password' : 'text'" required>
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-error class="f16" *ngIf="loginErrorMessage != '' ">{{loginErrorMessage}}</mat-error>
+            </mat-form-field>
+
+            
+          </div>
+        </div>
+          
+        </mat-card-content>
+        <mat-card-actions>
+            <button ion-button round outline type="submit" [class.btn-disabled]="registerCredentials.userid == '' || registerCredentials.password == ''" [disabled]="registerCredentials.userid == '' || registerCredentials.password == ''">Login</button>
+            <button ion-button round outline (click)="CreateNewAccount()">Register</button>
+<!--             
+          <button round (click)="login()" color="primary">Login</button>
+          <button mat-fab color="secondary">Register</button> -->
+        </mat-card-actions>
+      </mat-card>
 
   </form>
+  </div>
 </div>
 
 <form *ngIf="!isLogin" novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
+
   <div [class.hide]="state == 'NEXT'">
+      
     <ion-item>
       <ion-label>Name <span class="mandatorySign">*</span></ion-label>
       <ion-input type="text" value="" formControlName="firstname"></ion-input>
@@ -150,6 +213,23 @@
         <ion-option value="m">Afrika</ion-option>
       </ion-select>
     </ion-item> -->
+    <!-- <ion-toggle formControlName="pepperoni"></ion-toggle> -->
+
+    <ion-toggle [class.toggle-unchecked]="!toggle.value" #toggle formControlName="isToggled" (ionChange)="notify()"></ion-toggle>
+
+    <!-- <div class="mobile-app-toggle" data-mobile-app-toggle>
+      <button class="button is-active">People</button>
+      <button class="button">Tags</button>
+    </div>
+    
+    <div class="mobile-app-toggle" data-mobile-app-toggle>
+      <button class="button is-active">Posts</button>
+      <button class="button">Followers</button>
+      <button class="button">Following</button>
+    </div> -->
+  
+    
+ 
     <ion-item>
         <ion-label>Registration Type</ion-label>
         <ion-select interface="action-sheet" (ionChange)="Regtype(regType);" formControlName="registrationtype" [(ngModel)]="regType">
@@ -234,3 +314,16 @@
 
   <button ion-button [disabled]="user.invalid || customformvalidation">SUBMIT</button>
 </form>
+
+<mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+</ion-content>
+<!-- <mat-card>
+    <mat-card-content> -->
+<!-- <section class="example-section">
+  <mat-checkbox class="example-margin" >Checked</mat-checkbox>
+  <mat-checkbox class="example-margin" ionic>Indeterminate</mat-checkbox>
+</section> -->
+<!-- </mat-card-content>
+</mat-card> -->
+
+<footer></footer> 

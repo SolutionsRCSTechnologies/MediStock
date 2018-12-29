@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 // import { AboutPage } from '../pages/about/about';
@@ -15,6 +16,7 @@ import { AuthModule } from '../AuthModule/Authentication.module';
 import { SharedModule } from '../Shared/sharedUtil.module';
 import { MedistockModule } from '../Medistock/medistock.module';
 import { AppState } from '../app/app.global';
+//import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 @NgModule({
   declarations: [
     MyApp
@@ -29,8 +31,15 @@ import { AppState } from '../app/app.global';
     SharedModule,
     HttpModule,
     MedistockModule,
+    BrowserAnimationsModule,
+    // MatButtonModule, 
+    // MatCheckboxModule,
     IonicModule.forRoot(MyApp)
   ],
+  // exports:[
+  //   MatButtonModule, 
+  //   MatCheckboxModule,
+  //   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp

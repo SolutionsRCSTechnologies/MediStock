@@ -7,8 +7,10 @@ import { NavController } from 'ionic-angular';
 })
 export class Footer {
 
-  constructor(public navCtrl: NavController) {
+  public Year:any;
 
+  constructor(public navCtrl: NavController) {
+    this.Year = new Date().getFullYear();
   }
   
 }
