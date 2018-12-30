@@ -9,11 +9,13 @@ import { AuthComponent } from './Auth/Auth';
 import { AuthService } from './Auth.service';
 import { LogoutComponent } from './Logout/Logout';
 /* Material component */
-import {MatButtonModule, MatCheckboxModule,MatInputModule} from '@angular/material';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCardModule} from '@angular/material/card';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule, MatCheckboxModule, MatInputModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+// import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [AuthComponent, LogoutComponent],
@@ -21,7 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
     BrowserModule,
     SharedModule,
     MedistockModule,
-    MatButtonModule, MatCheckboxModule,MatInputModule,MatFormFieldModule,MatCardModule,MatProgressSpinnerModule,MatIconModule,
+    MatButtonModule, MatCheckboxModule, MatInputModule, MatFormFieldModule, MatCardModule, MatProgressSpinnerModule, MatIconModule, MatSlideToggleModule,
     IonicModule.forRoot(AuthComponent)
   ],
   //bootstrap: [IonicApp],

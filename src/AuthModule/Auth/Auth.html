@@ -18,7 +18,7 @@
   </ion-row>
 </ion-content> -->
 <ion-content class="mainColorbg">
-    <!-- <ion-row class="logo-row">
+  <!-- <ion-row class="logo-row">
         <ion-col></ion-col>
         <ion-col width-67>
           <img src="../../assets/imgs/CDR.png"/>
@@ -29,16 +29,16 @@
 
 
 
-<div class="login-box parent" *ngIf="isLogin">
-  <div class="form_login">
-  <div class="logoWrapper">
-      <img src="../../assets/imgs/CDR.png" class="rounded"/>
-  </div> 
-  <form (ngSubmit)="login()" #registerForm="ngForm">
-      <!-- <mat-form-field>
+  <div class="login-box parent" *ngIf="isLogin">
+    <div class="form_login">
+      <div class="logoWrapper">
+        <img src="../../assets/imgs/CDR.png" class="rounded" />
+      </div>
+      <form (ngSubmit)="login()" #registerForm="ngForm">
+        <!-- <mat-form-field>
           INPUTX <input matInput placeholder="Input">
       </mat-form-field> -->
-    <!-- <ion-row>
+        <!-- <ion-row>
       <ion-col>
         <ion-list inset>
             <div class="example-container">
@@ -46,8 +46,8 @@
                  <input matInput placeholder="Input">
             </mat-form-field>
             </div> -->
-            
-          <!-- <ion-item>
+
+        <!-- <ion-item>
             <ion-label>User Id <span class="mandatorySign">*</span></ion-label>
             <ion-input type="text"  name="userid" [(ngModel)]="registerCredentials.userid"
               required></ion-input>
@@ -63,259 +63,225 @@
         <!-- </ion-list>
       </ion-col>
     </ion-row> -->
-      
-    
-<!-- 
+
+
+        <!-- 
     <ion-row>
       <ion-col class="signup-col">
         <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
         <button ion-button class="register-btn" block clear (click)="CreateNewAccount()">Create New Account</button>
       </ion-col>
     </ion-row> -->
-    
-    <mat-card class="example-card">
-        <!-- <mat-card-header class="mat-login-header">
+
+        <mat-card class="example-card">
+          <!-- <mat-card-header class="mat-login-header">
           <mat-card-title class="f30">Login</mat-card-title>
         </mat-card-header> -->
-        <mat-card-content>
-        <div class="example-container">
-          <div>
-              <ion-icon name="person"></ion-icon>
-            <mat-form-field  class="w25p f16">
-              <input matInput placeholder="Enter your username" [(ngModel)]="registerCredentials.userid" [ngModelOptions]="{standalone:true}" name="username" required>
-            </mat-form-field>
-          </div>    
+          <mat-card-content>
+            <div class="example-container">
+              <div>
+                <ion-icon name="person"></ion-icon>
+                <mat-form-field class="w25p f16">
+                  <input matInput placeholder="Enter your username" [(ngModel)]="registerCredentials.userid"
+                    [ngModelOptions]="{standalone:true}" name="username" required>
+                </mat-form-field>
+              </div>
 
-          <div>
-            <ion-icon name="key"></ion-icon>
-            <mat-form-field class="w25p f16">
-              <!-- <input matInput placeholder="Password" type="password" name="password" required> -->
-              <input matInput placeholder="Enter your password" [(ngModel)]="registerCredentials.password" [ngModelOptions]="{standalone:true}" [type]="hide ? 'password' : 'text'" required>
-              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-              <mat-error class="f16" *ngIf="loginErrorMessage != '' ">{{loginErrorMessage}}</mat-error>
-            </mat-form-field>
+              <div>
+                <ion-icon name="key"></ion-icon>
+                <mat-form-field class="w25p f16">
+                  <!-- <input matInput placeholder="Password" type="password" name="password" required> -->
+                  <input matInput placeholder="Enter your password" [(ngModel)]="registerCredentials.password"
+                    [ngModelOptions]="{standalone:true}" [type]="hide ? 'password' : 'text'" required>
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-error class="f16" *ngIf="loginErrorMessage != '' ">{{loginErrorMessage}}</mat-error>
+                </mat-form-field>
 
-            
-          </div>
-        </div>
-          
-        </mat-card-content>
-        <mat-card-actions>
-            <button ion-button round outline type="submit" [class.btn-disabled]="registerCredentials.userid == '' || registerCredentials.password == ''" [disabled]="registerCredentials.userid == '' || registerCredentials.password == ''">Login</button>
+
+              </div>
+            </div>
+
+          </mat-card-content>
+          <mat-card-actions>
+            <button ion-button round outline type="submit" [class.btn-disabled]="registerCredentials.userid == '' || registerCredentials.password == ''"
+              [disabled]="registerCredentials.userid == '' || registerCredentials.password == ''">Login</button>
             <button ion-button round outline (click)="CreateNewAccount()">Register</button>
-<!--             
+            <!--             
           <button round (click)="login()" color="primary">Login</button>
           <button mat-fab color="secondary">Register</button> -->
-        </mat-card-actions>
-      </mat-card>
+          </mat-card-actions>
+        </mat-card>
 
-  </form>
-  </div>
-</div>
-
-<form *ngIf="!isLogin" novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
-
-  <div [class.hide]="state == 'NEXT'">
-      
-    <ion-item>
-      <ion-label>Name <span class="mandatorySign">*</span></ion-label>
-      <ion-input type="text" value="" formControlName="firstname"></ion-input>
-
-    </ion-item>
-
-    <ion-item no-lines *ngIf="( user.get('firstname').hasError('required') ) && user.get('firstname').touched">
-
-      <div class="error" *ngIf="user.get('firstname').hasError('required') && user.get('firstname').touched">
-        Name is required
-      </div>
-      <!-- <div class="error" *ngIf="user.get('firstname').hasError('minlength') && user.get('firstname').touched">
-        Minimum of 4 characters
-      </div> -->
-    </ion-item>
-    <ion-item>
-      <ion-label>Email <span class="mandatorySign">*</span></ion-label>
-      <ion-input type="text" value="" formControlName="emailid"></ion-input>
-    </ion-item>
-    <ion-item no-lines *ngIf="!user.get('emailid').valid && user.get('emailid').touched">
-      <div class="error" *ngIf="user.get('emailid').hasError('required') && user.get('emailid').touched">
-        Email id is required
-      </div>
-      <div class="error" *ngIf="!user.get('emailid').hasError('required') && !user.get('emailid').valid && user.get('emailid').touched">
-        Please enter valid email id
-      </div>
-    </ion-item>
-    <ion-item>
-      <ion-label>Mob <span class="mandatorySign">*</span> (+91)</ion-label>
-      <ion-input type="number" maxlength="10" value="" formControlName="mobileno"></ion-input>
-    </ion-item>
-    <ion-item no-lines *ngIf="( user.get('mobileno').hasError('required') || user.get('mobileno').hasError('minlength') || user.get('mobileno').hasError('maxlength'))&& user.get('mobileno').touched">
-      <div class="error" *ngIf="user.get('mobileno').hasError('required') && user.get('mobileno').touched">
-        Mobile no is required
-      </div>
-      <div class="error" *ngIf="user.get('mobileno').hasError('minlength') && user.get('mobileno').touched">
-        Please enter valid mobile number
-      </div>
-
-      <div class="error" *ngIf="user.get('mobileno').hasError('maxlength') && user.get('mobileno').touched">
-        Please enter valid mobile number
-      </div>
-    </ion-item>
-
-    <ion-item [class.hide]="regType == 'USER'">
-      <ion-label>Drug License <span class="mandatorySign">*</span></ion-label>
-      <ion-input type="text" value="" formControlName="druglicense"></ion-input>
-    </ion-item>
-
-    <ion-item [class.hide]="regType == 'USER'" no-lines *ngIf="user.get('druglicense').hasError('required') && user.get('druglicense').touched">
-      <div class="error" *ngIf="user.get('druglicense').hasError('required') && user.get('druglicense').touched">
-        Drug License is required
-      </div>
-    </ion-item>
-
-    <ion-item [class.hide]="regType == 'USER'">
-      <ion-label>Shope Name <span class="mandatorySign">*</span></ion-label>
-      <ion-input type="text" value="" formControlName="shopname"></ion-input>
-    </ion-item>
-
-    <ion-item [class.hide]="regType == 'USER'" no-lines *ngIf="user.get('shopname').hasError('required') && user.get('shopname').touched">
-      <div class="error" *ngIf="user.get('shopname').hasError('required') && user.get('shopname').touched">
-        Shope name is required
-      </div>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Address <span class="mandatorySign">*</span></ion-label>
-      <ion-textarea style="resize: none;" type="text" value="" formControlName="address"></ion-textarea>
-    </ion-item>
-
-    <ion-item no-lines *ngIf="user.get('address').hasError('required') && user.get('address').touched">
-      <div class="error" *ngIf="user.get('address').hasError('required') && user.get('address').touched">
-        Address is required
-      </div>
-    </ion-item>
-
-    <ion-item [class.hide]="regType != 'USER'">
-      <ion-label>Owner Info <span class="mandatorySign">*</span></ion-label>
-      <ion-input type="text" value="" formControlName="ownerinfo"></ion-input>
-    </ion-item>
-
-    <ion-item [class.hide]="regType != 'USER'" no-lines *ngIf="user.get('ownerinfo').hasError('required') && user.get('ownerinfo').touched">
-        <div class="error" *ngIf="user.get('ownerinfo').hasError('required') && user.get('ownerinfo').touched">
-            Owner Info is required
-        </div>
-    </ion-item>
-
-    <!-- <ion-item [class.hide]="regType == 'USER'">
-      <ion-label>Country</ion-label>
-
-      <ion-select formControlName="country">
-        <ion-option value="f">India</ion-option>
-        <ion-option value="m">Afrika</ion-option>
-      </ion-select>
-    </ion-item> -->
-    <!-- <ion-toggle formControlName="pepperoni"></ion-toggle> -->
-
-    <ion-toggle [class.toggle-unchecked]="!toggle.value" #toggle formControlName="isToggled" (ionChange)="notify()"></ion-toggle>
-
-    <!-- <div class="mobile-app-toggle" data-mobile-app-toggle>
-      <button class="button is-active">People</button>
-      <button class="button">Tags</button>
+      </form>
     </div>
-    
-    <div class="mobile-app-toggle" data-mobile-app-toggle>
-      <button class="button is-active">Posts</button>
-      <button class="button">Followers</button>
-      <button class="button">Following</button>
-    </div> -->
-  
-    
- 
-    <ion-item>
-        <ion-label>Registration Type</ion-label>
-        <ion-select interface="action-sheet" (ionChange)="Regtype(regType);" formControlName="registrationtype" [(ngModel)]="regType">
-          <ion-option value="OWNER">OWNER</ion-option>
-          <ion-option value="USER">USER</ion-option>
-        </ion-select>
-    </ion-item>
-
-    <ion-item no-lines *ngIf="user.get('registrationtype').hasError('required') && user.get('registrationtype').touched">
-        <div class="error" *ngIf="user.get('registrationtype').hasError('required') && user.get('registrationtype').touched">
-            Registration Type is required
-        </div>
-    </ion-item>
-
-
-    <!-- <ion-list radio-group formControlName="registrationtype">
-      <ion-label>Registration Type <span class="mandatorySign">*</span></ion-label>
-      <ion-item>
-        <ion-label>OWNER</ion-label>
-        <ion-radio value="OWNER" (ionSelect)="Regtype('OWNER')" [checked]=true></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-label>USER</ion-label>
-        <ion-radio (ionSelect)="Regtype('USER')" value="USER"></ion-radio>
-      </ion-item>
-    </ion-list> -->
-    
   </div>
-  <div [class.hide]="state == 'INITIAL'">
-    <ion-item>
-      <ion-label [class.hide]="regType == 'USER'">Owner Id</ion-label>
-      <ion-label [class.hide]="regType != 'USER'">User Id</ion-label>
-      <span class="mandatorySign">*</span>
-      <ion-input type="text" #userId value="" (keyup)="userPhrase$.next($event.target.value)" formControlName="userid"></ion-input>
-      <ion-label>
-        <ion-icon *ngIf="IsAvailable && userId.value != '' " class="green" title="Id is available" name="checkmark-circle"></ion-icon>
-        <ion-icon *ngIf="!IsAvailable && userId.value != ''" class="red" title="Id is not available" name="remove-circle"></ion-icon>
-      </ion-label>
-    </ion-item>
-<!--     
-    <ion-label class="red" *ngIf="!IsAvailable">Id is not available</ion-label> -->
+  <div *ngIf="!isLogin">
+    <div class="form_register">
+      <form *ngIf="!isLogin" novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
+        <mat-card class="example-card">
+          <mat-card-header class="mat-login-header">
+            <button class="next" mat-fab *ngIf="state == 'INITIAL'" (click)="Next()" color="primary">
+              <mat-icon aria-label="Goto next page">arrow_forward</mat-icon>
+            </button>
+            <button class="back" mat-fab *ngIf="state == 'NEXT'" (click)="Back()" color="primary">
+              <mat-icon aria-label="Goto next page">arrow_back</mat-icon>
+            </button>
+            <!-- <div>
+              <a mat-fab *ngIf="state == 'INITIAL'" (click)="Next()" color="primary">NEXT</a>
+              <a mat-fab *ngIf="state == 'NEXT'" (click)="Back()" color="primary">BACK</a>
+            </div> -->
+          </mat-card-header>
+          <mat-card-content>
+            <div class="example-container">
+              <div [class.hide]="state == 'NEXT'">
+                <div>
+                  <mat-form-field class="w25p f16">
+                    <input matInput placeholder="Enter your first name" formControlName="firstname" required>
+                    <mat-error class="f12" *ngIf="user.get('firstname').hasError('required') && user.get('firstname').touched">Name
+                      is required</mat-error>
+                  </mat-form-field>
+                </div>
 
-    <ion-item [class.hide]="regType != 'USER'" no-lines *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">
-        <div class="error" *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">
-            User Id is required
-        </div>
-    </ion-item>
-      <ion-item>
-        <ion-label>Password <span class="mandatorySign">*</span></ion-label>
-        <ion-input type="password" value="" formControlName="password"></ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-item no-lines *ngIf="user.get('password').hasError('required') && user.get('password').touched">
-              <div class="error" *ngIf="user.get('password').hasError('required') && user.get('password').touched">
-                  Password is required
+                <div>
+                  <mat-form-field class="w25p f16">
+                    <input matInput placeholder="Enter email id" formControlName="emailid" required>
+                    <mat-error class="f12" *ngIf="user.get('emailid').hasError('required') && user.get('emailid').touched">Email
+                      id is required</mat-error>
+                    <mat-error class="f12" *ngIf="!user.get('emailid').hasError('required') && !user.get('emailid').valid && user.get('emailid').touched">Please
+                      enter valid email id</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div>
+                  <mat-form-field class="w25p f16">
+                    <input type="number" matInput placeholder="Enter your mobile number" formControlName="mobileno"
+                      required>
+                    <mat-error class="f12" *ngIf="user.get('mobileno').hasError('required') && user.get('mobileno').touched">Mobile
+                      no is required</mat-error>
+                    <mat-error class="f12" *ngIf="user.get('mobileno').touched && user.get('mobileno').hasError('minlength')">Please
+                      enter valid mobile number</mat-error>
+                    <mat-error class="f12" *ngIf="user.get('mobileno').touched && user.get('mobileno').hasError('maxlength')">Please
+                      enter valid mobile number</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div [class.hide]="regType == 'USER'">
+                  <mat-form-field class="w25p f16">
+                    <input matInput placeholder="Enter drug license" formControlName="druglicense" required>
+                    <mat-error class="f12" *ngIf="user.get('druglicense').hasError('required') && user.get('druglicense').touched">Drug
+                      License is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div [class.hide]="regType == 'USER'">
+                  <mat-form-field class="w25p f16">
+                    <input matInput placeholder="Enter shop name" formControlName="shopname" required>
+                    <mat-error class="f12" *ngIf="user.get('shopname').hasError('required') && user.get('shopname').touched">Shope
+                      name is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div>
+                  <mat-form-field class="w25p f16">
+                    <input matInput placeholder="Enter address" formControlName="address" required>
+                    <mat-error class="f12" *ngIf="user.get('address').hasError('required') && user.get('address').touched">Address
+                      is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div [class.hide]="regType != 'USER'">
+                  <mat-form-field class="w25p f16">
+                    <input matInput placeholder="Enter owner information" formControlName="ownerinfo" required>
+                    <mat-error class="f12" *ngIf="user.get('ownerinfo').hasError('required') && user.get('ownerinfo').touched">Owner
+                      information is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- <div>
+                  <section class="example-section">
+                    <mat-slide-toggle class="example-margin" [checked]="isRegType" (change)="RegistrationType();"
+                      formControlName="registrationtype">{{regType}}
+                    </mat-slide-toggle>
+                  </section>
+                </div> -->
+
+                <!-- <div>
+                  <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="registrationtype" [value]="regType"
+                    (change)="Regtype(group.value);">
+                    <mat-button-toggle value="USER">
+                      <span>User</span>
+                    </mat-button-toggle>
+                    <mat-button-toggle value="OWNER">
+                      <span>Owner</span>
+                    </mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div> -->
+
               </div>
-              <div class="error" *ngIf="user.get('password').valid && user.get('password').touched">
-                  Password is not valid
+
+              <div [class.hide]="state == 'INITIAL'">
+                <div>
+                  <mat-form-field class="w25p f16">
+                    <input matInput [placeholder]="regType != 'USER' ? 'Owner Id': 'User Id'" (keyup)="userPhrase$.next($event.target.value)"
+                      formControlName="userid" required>
+                    <mat-error class="f12" *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">{{regType
+                      != 'USER' ? 'Owner
+                      id is required': 'User id is required'}}</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div>
+                  <mat-form-field class="w25p f16">
+                    <input matInput placeholder="Give a password" formControlName="password" [type]="hide ? 'password' : 'text'"
+                      required>
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error class="f12" *ngIf="user.get('password').hasError('required') && user.get('password').touched">Password
+                      is required</mat-error>
+                    <mat-error class="f12" *ngIf="user.get('password').valid && user.get('password').touched">Password
+                      is not valid</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div>
+                  <mat-form-field class="w25p f16">
+                    <input matInput placeholder="Confirm password" formControlName="confirm_password" type="password"
+                      required>
+                    <mat-error class="f12" *ngIf="user.get('confirm_password').touched && user.get('confirm_password').value != user.get('password').value">Password
+                      and confirm password is not matching</mat-error>
+                  </mat-form-field>
+                </div>
               </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button ion-button round outline type="submit" [class.btn-disabled]="user.invalid || customformvalidation"
+              [disabled]="user.invalid || customformvalidation">Submit</button>
+            <button ion-button round outline (click)="backtologin()">Goto Login</button>
+          </mat-card-actions>
+        </mat-card>
+
+        <!-- <div [class.hide]="state == 'NEXT'">
+          <ion-toggle [class.toggle-unchecked]="!toggle.value" #toggle formControlName="isToggled" (ionChange)="notify()"></ion-toggle>
+          <ion-item>
+            <ion-label>Registration Type</ion-label>
+            <ion-select interface="action-sheet" (ionChange)="Regtype(regType);" formControlName="registrationtype"
+              [(ngModel)]="regType">
+              <ion-option value="OWNER">OWNER</ion-option>
+              <ion-option value="USER">USER</ion-option>
+            </ion-select>
           </ion-item>
-        <ion-label>confirm password <span class="mandatorySign">*</span></ion-label>
-        <ion-input type="password" value="" formControlName="confirm_password"></ion-input>
-      </ion-item>
 
-      <ion-item no-lines *ngIf="user.get('confirm_password').touched">
-        <div class="error" *ngIf="user.get('confirm_password').value != user.get('password').value">
-          Password and confirm password not matched
-        </div>
-        <!-- <div class="error" *ngIf="user.get('emailid').hasError('emailid') && user.get('emailid').touched">
-          Please enter valid email
+          <ion-item no-lines *ngIf="user.get('registrationtype').hasError('required') && user.get('registrationtype').touched">
+            <div class="error" *ngIf="user.get('registrationtype').hasError('required') && user.get('registrationtype').touched">
+              Registration Type is required
+            </div>
+          </ion-item>
         </div> -->
-      </ion-item>
-    
-    <!-- <ion-item>
-        <ion-label >Confirm Password</ion-label>
-        <ion-input type="password" value="" formControlName="conpassword"></ion-input>
-      </ion-item> -->
+
+      </form>
+    </div>
   </div>
-  <button ion-button class="register-btn" block clear (click)="backtologin()">Back to Login</button>
-  <a ion-link *ngIf="state == 'INITIAL'" (click)="Next()" color="primary">NEXT</a>
-  <a ion-link *ngIf="state == 'NEXT'" (click)="Back()" color="primary">BACK</a>
-
-  <button ion-button [disabled]="user.invalid || customformvalidation">SUBMIT</button>
-</form>
-
-<mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
 </ion-content>
 <!-- <mat-card>
     <mat-card-content> -->
@@ -326,4 +292,4 @@
 <!-- </mat-card-content>
 </mat-card> -->
 
-<footer></footer> 
+<footer></footer>

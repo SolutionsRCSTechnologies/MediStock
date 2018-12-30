@@ -25,7 +25,9 @@ export class AuthComponent implements OnInit {
     sessionid: ''
   };
 
-  pepperoni:any = 'user';
+  pepperoni: any = 'user';
+
+  isRegType: boolean = false;
 
   nameList: string[] = [];
   IsAvailable: boolean = false;
@@ -43,31 +45,31 @@ export class AuthComponent implements OnInit {
   public emailpattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   public passwordpattern = "^([a-zA-Z0-9@*#]{8,15})$";
   public regType = 'OWNER';
-  public hide:boolean = true;
+  public hide: boolean = true;
   constructor(private navCtrl: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
 
   public createAccount() {
 
   }
-  RegistrationForm(){
+  RegistrationForm() {
     this.user = new FormGroup({
       firstname: new FormControl('', [Validators.required]),
-      emailid: new FormControl('', [Validators.required,Validators.pattern(this.emailpattern)]),
+      emailid: new FormControl('', [Validators.required, Validators.pattern(this.emailpattern)]),
       mobileno: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
       druglicense: new FormControl('', [Validators.required]),
-      shopname: new FormControl('',[Validators.required]),
+      shopname: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
       // country: new FormControl('', []),
       registrationtype: new FormControl('', [Validators.required]),
       ownerinfo: new FormControl('', []),
       isToggled: new FormControl(false, [Validators.required]),
-      userid: new FormControl('', [Validators.required,Validators.minLength(3)]),
-      
-     // ownerid: new FormControl('', []),
-      password: new FormControl('', [Validators.required,Validators.pattern(this.passwordpattern)]),
-      confirm_password: new FormControl('', [Validators.required,Validators.pattern(this.passwordpattern)])
+      userid: new FormControl('', [Validators.required, Validators.minLength(3)]),
+
+      // ownerid: new FormControl('', []),
+      password: new FormControl('', [Validators.required, Validators.pattern(this.passwordpattern)]),
+      confirm_password: new FormControl('', [Validators.required, Validators.pattern(this.passwordpattern)])
     });
-    }
+  }
 
   ngOnInit() {
     this.auth.GetAuthDetails().then(res => {
@@ -118,7 +120,7 @@ export class AuthComponent implements OnInit {
       }
     }));
   }
-  
+
 
   //pattern= 
 
@@ -209,15 +211,16 @@ export class AuthComponent implements OnInit {
     this.state = "INITIAL";
   }
 
-  notify(){
-    
+  notify() {
+
   }
 
   Regtype(val) {
-    let controls:any=['ownerinfo','druglicense','shopname'];
-    let isvalidfield:boolean = false;
-    let isvalidownerinfo:boolean = false;
+    let controls: any = ['ownerinfo', 'druglicense', 'shopname'];
+    let isvalidfield: boolean = false;
+    let isvalidownerinfo: boolean = false;
     //this.userType = val;
+    this.regType = val && val.length > 0 ? val : 'USER';
     if (val == "USER") {
       isvalidfield = false;
       isvalidownerinfo = true;
@@ -228,27 +231,32 @@ export class AuthComponent implements OnInit {
     }
 
     controls.forEach(element => {
-      if(element != 'ownerinfo') this.setresetcontrol(element,isvalidfield);
-      if(element == 'ownerinfo') this.setresetcontrol(element,isvalidownerinfo);
+      if (element != 'ownerinfo') this.setresetcontrol(element, isvalidfield);
+      if (element == 'ownerinfo') this.setresetcontrol(element, isvalidownerinfo);
     });
 
   }
 
-  get customformvalidation(){
-    if(this.user.get('confirm_password').value == this.user.get('password').value){
+  RegistrationType() {
+    this.isRegType = !this.isRegType;
+    this.regType = this.isRegType ? 'OWNER' : 'USER';
+  }
+
+  get customformvalidation() {
+    if (this.user.get('confirm_password').value == this.user.get('password').value) {
       return false;
     }
-    else{
+    else {
       return true;
     }
   }
 
-  CreateNewAccount(){
+  CreateNewAccount() {
     this.isLogin = false;
     this.user.reset();
   }
 
-  backtologin(){
+  backtologin() {
     this.isLogin = true
     this.state = 'INITIAL';
 
@@ -261,16 +269,16 @@ export class AuthComponent implements OnInit {
     this.loginErrorMessage = '';
   }
 
-  setresetcontrol(controlname,valid){
-     this.user.removeControl(controlname);
-     let control:FormControl;
-     if(valid){
-        control = new FormControl([],[Validators.required]);
-     }
-     else{
-        control = new FormControl([],[Validators.nullValidator]);
-     }
-     this.user.setControl(controlname,control);
+  setresetcontrol(controlname, valid) {
+    this.user.removeControl(controlname);
+    let control: FormControl;
+    if (valid) {
+      control = new FormControl([], [Validators.required]);
+    }
+    else {
+      control = new FormControl([], [Validators.nullValidator]);
+    }
+    this.user.setControl(controlname, control);
   }
 
   onSubmit(userdata) {
