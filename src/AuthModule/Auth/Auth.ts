@@ -25,12 +25,14 @@ export class AuthComponent implements OnInit {
     sessionid: ''
   };
 
+  user: FormGroup;
+  IsAvailable: boolean = false;
   pepperoni: any = 'user';
 
   isRegType: boolean = true;
 
   nameList: string[] = [];
-  IsAvailable: boolean = false;
+
 
   userPhrase$ = new Subject<string>();
 
@@ -38,7 +40,7 @@ export class AuthComponent implements OnInit {
 
   public subs: Subscription[] = [];
 
-  user: FormGroup;
+
   public state = "INITIAL";
   public loginErrorMessage: string = 'gggggggggg';
   //public userType = '';
