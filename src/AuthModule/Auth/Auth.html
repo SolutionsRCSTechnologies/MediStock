@@ -197,13 +197,14 @@
                   </mat-form-field>
                 </div>
 
-                <!-- <div>
+                <div>
                   <section class="example-section">
-                    <mat-slide-toggle class="example-margin" [checked]="isRegType" (change)="RegistrationType();"
-                      formControlName="registrationtype">{{regType}}
+                    <ion-label class="lblText">Register as</ion-label>
+                    <mat-slide-toggle class="example-margin toggle-slide" [checked]="isRegType" (change)="RegistrationType();"
+                      formControlName="registrationtype" [color]="primary">{{regType}}
                     </mat-slide-toggle>
                   </section>
-                </div> -->
+                </div>
 
                 <!-- <div>
                   <mat-button-toggle-group #group="matButtonToggleGroup" formControlName="registrationtype" [value]="regType"
@@ -224,6 +225,7 @@
                   <mat-form-field class="w25p f16">
                     <input matInput [placeholder]="regType != 'USER' ? 'Owner Id': 'User Id'" (keyup)="userPhrase$.next($event.target.value)"
                       formControlName="userid" required>
+                    <mat-icon matSuffix>{{IsAvailable ? 'done' : 'clear'}}</mat-icon>
                     <mat-error class="f12" *ngIf="user.get('userid').hasError('required') && user.get('userid').touched">{{regType
                       != 'USER' ? 'Owner
                       id is required': 'User id is required'}}</mat-error>
@@ -254,8 +256,8 @@
             </div>
           </mat-card-content>
           <mat-card-actions>
-            <button ion-button round outline type="submit" [class.btn-disabled]="user.invalid || customformvalidation"
-              [disabled]="user.invalid || customformvalidation">Submit</button>
+            <button ion-button round outline type="submit" [class.btn-disabled]="!IsAvailable || user.invalid || customformvalidation"
+              [disabled]="!IsAvailable || user.invalid || customformvalidation">Submit</button>
             <button ion-button round outline (click)="backtologin()">Goto Login</button>
           </mat-card-actions>
         </mat-card>

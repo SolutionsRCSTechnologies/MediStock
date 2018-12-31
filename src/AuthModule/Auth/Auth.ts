@@ -27,7 +27,7 @@ export class AuthComponent implements OnInit {
 
   pepperoni: any = 'user';
 
-  isRegType: boolean = false;
+  isRegType: boolean = true;
 
   nameList: string[] = [];
   IsAvailable: boolean = false;
@@ -239,7 +239,7 @@ export class AuthComponent implements OnInit {
 
   RegistrationType() {
     this.isRegType = !this.isRegType;
-    this.regType = this.isRegType ? 'OWNER' : 'USER';
+    this.regType = this.isRegType ? 'USER' : 'OWNER';
   }
 
   get customformvalidation() {
