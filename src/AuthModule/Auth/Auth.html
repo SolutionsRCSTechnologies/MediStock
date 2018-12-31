@@ -256,8 +256,8 @@
             </div>
           </mat-card-content>
           <mat-card-actions>
-            <button ion-button round outline type="submit" [class.btn-disabled]="!this.IsAvailable || this.user.invalid || this.customformvalidation"
-              [disabled]="!this.IsAvailable || this.user.invalid || this.customformvalidation">Submit</button>
+            <button ion-button round outline type="submit" [class.btn-disabled]="!IsAvailable || user.invalid || customformvalidation"
+              [disabled]="!IsAvailable || user.invalid || customformvalidation">Submit</button>
             <button ion-button round outline (click)="backtologin()">Goto Login</button>
           </mat-card-actions>
         </mat-card>

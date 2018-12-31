@@ -17,13 +17,13 @@ export class AuthService {
         return this.http.post('loginAuth', {}, formData);
     }
 
-    regAuth(formData) {
+    regAuth(formData, regType) {
         let reqData: any = {};
-        if (formData.registrationtype == "USER") {
+        if (regType == "USER") {
             reqData = {
                 registrationtype: "USER",
                 ownerid: formData.ownerinfo,
-                users:[{
+                users: [{
                     userid: formData.userid,
                     password: formData.password,
                     firstname: formData.firstname,

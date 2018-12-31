@@ -29,7 +29,7 @@ export class AuthComponent implements OnInit {
   IsAvailable: boolean = false;
   pepperoni: any = 'user';
 
-  isRegType: boolean = true;
+  isRegType: boolean;
 
   nameList: string[] = [];
 
@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit {
   //public userType = '';
   public emailpattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   public passwordpattern = "^([a-zA-Z0-9@*#]{8,15})$";
-  public regType = 'OWNER';
+  public regType = 'USER';
   public hide: boolean = true;
   constructor(private navCtrl: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
 
@@ -88,7 +88,7 @@ export class AuthComponent implements OnInit {
       if (isValidAuth) {
         this.login();
       } else {
-        this.regType = 'OWNER';
+        this.regType = 'USER';
         this.RegistrationForm();
       }
     });
@@ -240,8 +240,15 @@ export class AuthComponent implements OnInit {
   }
 
   RegistrationType() {
-    this.isRegType = !this.isRegType;
-    this.regType = this.isRegType ? 'USER' : 'OWNER';
+    if (this.regType == 'USER') {
+      this.regType = 'OWNER';
+      this.isRegType = true;
+    } else {
+      this.regType = 'USER';
+      this.isRegType = false;
+    }
+    // this.isRegType = !this.isRegType;
+    // this.regType = this.isRegType ? 'USER' : 'OWNER';
   }
 
   get customformvalidation() {
@@ -286,7 +293,7 @@ export class AuthComponent implements OnInit {
   onSubmit(userdata) {
     console.log(userdata);
     this.showLoading();
-    this.subs.push(this.auth.regAuth(userdata.value)
+    this.subs.push(this.auth.regAuth(userdata.value, this.regType)
       .subscribe((res) => {
         console.dir(res);
         this.loading.dismiss();
