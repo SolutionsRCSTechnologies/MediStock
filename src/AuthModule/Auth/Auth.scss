@@ -44,7 +44,19 @@ input[type=number]::-webkit-outer-spin-button {
 .back {
   position: fixed !important;
   top: 1% !important;
-  left: 85% !important;
+  left: 3% !important;
+  width: 40px !important;
+  height: 40px !important;
+  font-size: 12px !important;
+}
+
+.font15px {
+  font-size: 15px !important;
+}
+
+.next>.mat-button-wrapper,
+.back>.mat-button-wrapper {
+  padding: 12px 0 !important;
 }
 
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
