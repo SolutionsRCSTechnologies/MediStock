@@ -103,9 +103,9 @@
 
           </mat-card-content>
           <mat-card-actions>
-            <button ion-button round outline type="submit" [class.btn-disabled]="registerCredentials.userid == '' || registerCredentials.password == ''"
+            <button ion-button round outline type="submit" class="active-bg" [class.btn-disabled]="registerCredentials.userid == '' || registerCredentials.password == ''"
               [disabled]="registerCredentials.userid == '' || registerCredentials.password == ''">Login</button>
-            <button ion-button round outline (click)="CreateNewAccount()">Register</button>
+            <button ion-button round outline class="active-bg" (click)="CreateNewAccount()">Register</button>
             <!--             
           <button round (click)="login()" color="primary">Login</button>
           <button mat-fab color="secondary">Register</button> -->
@@ -134,7 +134,7 @@
           <mat-card-content>
             <div class="example-container">
               <div [class.hide]="state == 'NEXT'">
-                <div>
+                <div class="divWrapper">
                   <mat-form-field class="w25p f16">
                     <input matInput placeholder="Enter your first name" formControlName="firstname" required>
                     <mat-error class="f12" *ngIf="user.get('firstname').hasError('required') && user.get('firstname').touched">Name
@@ -142,7 +142,7 @@
                   </mat-form-field>
                 </div>
 
-                <div>
+                <div class="divWrapper">
                   <mat-form-field class="w25p f16">
                     <input matInput placeholder="Enter email id" formControlName="emailid" required>
                     <mat-error class="f12" *ngIf="user.get('emailid').hasError('required') && user.get('emailid').touched">Email
@@ -152,7 +152,7 @@
                   </mat-form-field>
                 </div>
 
-                <div>
+                <div class="divWrapper">
                   <mat-form-field class="w25p f16">
                     <input type="number" matInput placeholder="Enter your mobile number" formControlName="mobileno"
                       required>
@@ -165,23 +165,7 @@
                   </mat-form-field>
                 </div>
 
-                <div [class.hide]="regType == 'USER'">
-                  <mat-form-field class="w25p f16">
-                    <input matInput placeholder="Enter drug license" formControlName="druglicense" required>
-                    <mat-error class="f12" *ngIf="user.get('druglicense').hasError('required') && user.get('druglicense').touched">Drug
-                      License is required</mat-error>
-                  </mat-form-field>
-                </div>
-
-                <div [class.hide]="regType == 'USER'">
-                  <mat-form-field class="w25p f16">
-                    <input matInput placeholder="Enter shop name" formControlName="shopname" required>
-                    <mat-error class="f12" *ngIf="user.get('shopname').hasError('required') && user.get('shopname').touched">Shope
-                      name is required</mat-error>
-                  </mat-form-field>
-                </div>
-
-                <div>
+                <div class="divWrapper">
                   <mat-form-field class="w25p f16">
                     <input matInput placeholder="Enter address" formControlName="address" required>
                     <mat-error class="f12" *ngIf="user.get('address').hasError('required') && user.get('address').touched">Address
@@ -189,7 +173,25 @@
                   </mat-form-field>
                 </div>
 
-                <div [class.hide]="regType != 'USER'">
+                <div class="divWrapper" [class.disabledForm]="regType == 'USER'">
+                  <mat-form-field class="w25p f16">
+                    <input matInput placeholder="Enter drug license" formControlName="druglicense" required>
+                    <mat-error class="f12" *ngIf="user.get('druglicense').hasError('required') && user.get('druglicense').touched">Drug
+                      License is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="divWrapper" [class.disabledForm]="regType == 'USER'">
+                  <mat-form-field class="w25p f16">
+                    <input matInput placeholder="Enter shop name" formControlName="shopname" required>
+                    <mat-error class="f12" *ngIf="user.get('shopname').hasError('required') && user.get('shopname').touched">Shope
+                      name is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                
+
+                <div class="divWrapper" [class.disabledForm]="regType != 'USER'">
                   <mat-form-field class="w25p f16">
                     <input matInput placeholder="Enter owner information" formControlName="ownerinfo" required>
                     <mat-error class="f12" *ngIf="user.get('ownerinfo').hasError('required') && user.get('ownerinfo').touched">Owner
@@ -197,12 +199,12 @@
                   </mat-form-field>
                 </div>
 
-                <div>
-                  <section class="example-section">
+                <div class="divWrapper"> 
+                  <section class="example-section toggle-button">
                     <ion-label class="lblText">Register as</ion-label>
-                    <mat-slide-toggle class="example-margin toggle-slide" [checked]="isRegType" (change)="RegistrationType();"
-                      formControlName="registrationtype" [color]="primary">{{regType}}
-                    </mat-slide-toggle>
+                    <mat-slide-toggle class="example-margin toggle-slide" [checked]="isRegType" (change)="Regtype($event);"
+                      formControlName="registrationtype" [color]="primary"> </mat-slide-toggle>
+                      <span class="lblText">{{regType}}</span>
                   </section>
                 </div>
 
@@ -220,8 +222,9 @@
 
               </div>
 
-              <div [class.hide]="state == 'INITIAL'">
-                <div>
+              <div class="parent" [class.hide]="state == 'INITIAL'">
+                <div class="form_login">
+                <div class="divWrapper">
                   <mat-form-field class="w25p f16">
                     <input matInput [placeholder]="regType != 'USER' ? 'Owner Id': 'User Id'" (keyup)="userPhrase$.next($event.target.value)"
                       formControlName="userid" required>
@@ -233,7 +236,7 @@
                   </mat-form-field>
                 </div>
 
-                <div>
+                <div class="divWrapper">
                   <mat-form-field class="w25p f16">
                     <input matInput placeholder="Give a password" formControlName="password" [type]="hide ? 'password' : 'text'"
                       required>
@@ -249,21 +252,22 @@
                   </mat-form-field>
                 </div>
 
-                <div>
+                <div class="divWrapper">
                   <mat-form-field class="w25p f16">
                     <input matInput placeholder="Confirm password" formControlName="confirm_password" type="password"
                       required>
-                    <mat-error class="f12" *ngIf="user.get('confirm_password').touched && user.get('confirm_password').value != user.get('password').value">Password
+                      <mat-error class="f12" *ngIf="user.get('confirm_password').touched && user.get('confirm_password').value != user.get('password').value">Password
                       and confirm password is not matching</mat-error>
                   </mat-form-field>
                 </div>
+              </div>
               </div>
             </div>
           </mat-card-content>
           <mat-card-actions>
             <button ion-button round outline type="submit" [class.btn-enabled]="!user.invalid && !customformvalidation"
-              [class.btn-disabled]="user.invalid || customformvalidation" [disabled]="user.invalid || customformvalidation">Submit</button>
-            <button ion-button round outline (click)="backtologin()">Goto Login</button>
+              class="active-bg" [class.btn-disabled]="user.invalid || customformvalidation" [disabled]="user.invalid || customformvalidation">Submit</button>
+            <button ion-button round outline class="active-bg" (click)="backtologin()">Goto Login</button>
           </mat-card-actions>
         </mat-card>
 
@@ -299,4 +303,4 @@
 <!-- </mat-card-content>
 </mat-card> -->
 
-<footer></footer>
+<!-- <footer></footer> -->

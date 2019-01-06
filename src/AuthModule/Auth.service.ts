@@ -35,6 +35,7 @@ export class AuthService {
         }
         else {
             reqData = formData;
+            reqData.registrationtype = 'OWNER';
         }
         return this.http.post('regAuth', reqData, {});
     }

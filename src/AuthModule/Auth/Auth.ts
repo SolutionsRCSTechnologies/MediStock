@@ -42,7 +42,7 @@ export class AuthComponent implements OnInit {
 
 
   public state = "INITIAL";
-  public loginErrorMessage: string = 'gggggggggg';
+  public loginErrorMessage: string = '';
   //public userType = '';
   public emailpattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   public passwordpattern = "^([a-zA-Z0-9@*#]{8,15})$";
@@ -58,13 +58,12 @@ export class AuthComponent implements OnInit {
       firstname: new FormControl('', [Validators.required]),
       emailid: new FormControl('', [Validators.required, Validators.pattern(this.emailpattern)]),
       mobileno: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
-      druglicense: new FormControl('', [Validators.required]),
-      shopname: new FormControl('', [Validators.required]),
+      druglicense: new FormControl('', []),
+      shopname: new FormControl('', []),
       address: new FormControl('', [Validators.required]),
       // country: new FormControl('', []),
-      registrationtype: new FormControl('', [Validators.required]),
-      ownerinfo: new FormControl('', []),
-      isToggled: new FormControl(false, [Validators.required]),
+      registrationtype: new FormControl(false, [Validators.required]),
+      ownerinfo: new FormControl('', [Validators.required]),
       userid: new FormControl('', [Validators.required, Validators.minLength(3)]),
 
       // ownerid: new FormControl('', []),
@@ -218,24 +217,34 @@ export class AuthComponent implements OnInit {
   }
 
   Regtype(val) {
+    debugger
     let controls: any = ['ownerinfo', 'druglicense', 'shopname'];
     let isvalidfield: boolean = false;
     let isvalidownerinfo: boolean = false;
     //this.userType = val;
-    this.regType = val && val.length > 0 ? val : 'USER';
-    if (val == "USER") {
+    if (!val.checked) {
+      this.regType = 'USER';
       isvalidfield = false;
       isvalidownerinfo = true;
+      this.user.controls['shopname'].setValue('Not Required');
+      this.user.controls['druglicense'].setValue('Not Required');
+      this.user.controls['ownerinfo'].setValue('');
     }
     else {
+      this.regType = 'OWNER';
       isvalidfield = true;
       isvalidownerinfo = false;
+      this.user.controls['shopname'].setValue('');
+      this.user.controls['druglicense'].setValue('');
+      this.user.controls['ownerinfo'].setValue('Not Required');
     }
 
     controls.forEach(element => {
       if (element != 'ownerinfo') this.setresetcontrol(element, isvalidfield);
       if (element == 'ownerinfo') this.setresetcontrol(element, isvalidownerinfo);
     });
+
+    
 
   }
 
@@ -262,7 +271,11 @@ export class AuthComponent implements OnInit {
 
   CreateNewAccount() {
     this.isLogin = false;
+    this.IsAvailable = false;
     this.user.reset();
+    this.user.controls['registrationtype'].setValue(false);
+    this.user.controls['shopname'].setValue('Not Required');
+    this.user.controls['druglicense'].setValue('Not Required');
   }
 
   backtologin() {
@@ -276,16 +289,17 @@ export class AuthComponent implements OnInit {
       sessionid: ''
     };
     this.loginErrorMessage = '';
+    this.IsAvailable = false;
   }
 
   setresetcontrol(controlname, valid) {
     this.user.removeControl(controlname);
     let control: FormControl;
     if (valid) {
-      control = new FormControl([], [Validators.required]);
+      control = new FormControl('', [Validators.required]);
     }
     else {
-      control = new FormControl([], [Validators.nullValidator]);
+      control = new FormControl('Not Required', [Validators.nullValidator]);
     }
     this.user.setControl(controlname, control);
   }
